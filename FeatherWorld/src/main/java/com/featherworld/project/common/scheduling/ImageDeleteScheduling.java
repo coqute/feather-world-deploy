@@ -17,7 +17,7 @@ public class ImageDeleteScheduling {
 
     @Autowired
     private MemberService memberService;
-    
+
     // 좌측 프로필 이미지 파일 저장 경로
     @Value("${my.left-profile.folder-path}")
     private String leftProfileFolderPath;
@@ -30,6 +30,9 @@ public class ImageDeleteScheduling {
     @Value("${my.board.folder-path}")
     private String boardFolderPath;
 
+    @Value("${my.tmp.folder-path}")
+    private String tmpFolderPath;
+
     // 매일 오전 3시에 삭제 진행
     @Scheduled(cron = "0 0 3 * * *")
     public void deleteImage() {
@@ -39,7 +42,7 @@ public class ImageDeleteScheduling {
         File leftProfileFolder = new File(leftProfileFolderPath);
         File profileFolder = new File(profileFolderPath);
         File boardFolder = new File(boardFolderPath);
-        
+
         // 파일 목록 불러오기
         File[] leftProfileArray = leftProfileFolder.listFiles();
         File[] profileArray = profileFolder.listFiles();
@@ -79,5 +82,33 @@ public class ImageDeleteScheduling {
             
             log.info("{} 파일 삭제", sb.toString());
         }
+    }
+
+    // 새벽 4시 tmp 정리 (기존 3시와 분리)
+    @Scheduled(cron = "0 0 4 * * *")
+    public void deleteOldTmpFiles() {
+        log.info("임시 파일 정리 시작");
+
+        File tmpFolder = new File(tmpFolderPath);
+        if (!tmpFolder.exists()) return;
+
+        File[] files = tmpFolder.listFiles();
+        if (files == null) return;
+
+        long now = System.currentTimeMillis();
+        long threshold = 1000L * 60 * 60 * 24; // 24시간
+
+        StringBuilder sb = new StringBuilder();
+        int deletedCount = 0;
+
+        for (File file : files) {
+            if (now - file.lastModified() > threshold) {
+                sb.append(file.getName()).append(" ");
+                file.delete();
+                deletedCount++;
+            }
+        }
+
+        log.info("임시 파일 {}개 삭제 완료: {}", deletedCount, sb.toString());
     }
 }
