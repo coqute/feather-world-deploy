@@ -4,7 +4,6 @@ import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +15,6 @@ import com.featherworld.project.profile.model.mapper.ProfileMapper;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-@PropertySource("classpath:/config.properties")
 public class ProfileServiceImpl implements ProfileService {
 
 	@Autowired

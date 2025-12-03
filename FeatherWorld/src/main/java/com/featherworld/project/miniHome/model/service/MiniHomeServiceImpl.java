@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +19,6 @@ import com.featherworld.project.miniHome.model.mapper.MiniHomeMapper;
 	
 @Service
 @Transactional(rollbackFor = Exception.class)
-@PropertySource("classpath:/config.properties")
 public class MiniHomeServiceImpl implements MiniHomeService {
 	
 	@Autowired

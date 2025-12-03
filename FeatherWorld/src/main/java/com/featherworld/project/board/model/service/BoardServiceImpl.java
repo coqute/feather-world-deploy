@@ -11,21 +11,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.featherworld.project.board.model.dto.Board;
 import com.featherworld.project.board.model.dto.BoardImg;
-import com.featherworld.project.board.model.dto.BoardType;
-import com.featherworld.project.board.model.dto.Comment;
 import com.featherworld.project.board.model.mapper.BoardMapper;
 import com.featherworld.project.common.dto.Pagination;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-@PropertySource("classpath:/config.properties")
 @Slf4j
 public class BoardServiceImpl implements BoardService {
 

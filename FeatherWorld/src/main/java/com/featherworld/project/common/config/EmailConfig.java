@@ -5,13 +5,10 @@ import java.util.Properties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
-@PropertySource("classpath:/config.properties") // Google SMTP에 사용할 username, password(앱 비밀번호) 
-                                              
 // ************각자 config에 email 값 이랑 password 입력해주기***********************
 public class EmailConfig {
 	// 이메일 인증 관련  config
