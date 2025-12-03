@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FeatherWorld - Email 찾기</title>
+    <!-- 공통 스타일시트와 리소스 -->
+    <th:block th:replace="~{common/common}"></th:block>
+    <link rel="stylesheet" href="/css/mainHome/findId.css" />
+  </head>
+  <body>
+    <!-- 헤더 포함 -->
+    <header>
+      <div th:replace="~{common/header}"></div>
+    </header>
+
+    <main class="main-content">
+      <div class="page-container">
+        <!-- 좌측 메뉴 -->
+        <div class="left-menu">
+          <a href="/member/findId" class="btn">Find Email</a>
+          <a href="/member/findPw" class="btn secondary">Find Password</a>
+        </div>
+
+        <!-- 메인 컨텐츠 박스 -->
+        <div class="main-box">
+          <div class="email-find-form">
+            <h1 class="title">EMAIL 찾기</h1>
+
+            <div class="form-group">
+              <label class="required">NAME :</label>
+              <input
+                type="text"
+                id="name"
+                name="memberName"
+                placeholder="이름을 입력해 주세요."
+              />
+              <span id="nameError" class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="required">PHONE :</label>
+              <input
+                type="text"
+                id="phone"
+                name="memberTel"
+                placeholder="전화번호를 입력해 주세요."
+              />
+              <span id="phoneError" class="error-message"></span>
+            </div>
+
+            <div id="emailResult" class="email-result-box" style="display: none">
+              <p>이메일: <span id="foundEmail"></span> 입니다.</p>
+            </div>
+
+            <button class="confirm-btn" id="confirmBtn">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer>
+      <div th:replace="~{common/footer}"></div>
+    </footer>
+
+    <script src="/js/member/findId.js"></script>
+  </body>
+</html>

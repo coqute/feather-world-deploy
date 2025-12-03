@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>editprofile</title>
+    <!-- 공용 css/js 추가 -->
+    <th:block th:replace="~{common/common}"></th:block>
+
+    <!-- edit 전용 CSS -->
+    <link rel="stylesheet" href="/css/profile/editprofile.css" />
+  </head>
+
+  <body class="editprofile-page">
+	<div class="center-page">
+	     <div class="center-content">
+    <div class="container">
+      <!-- Header Fragment -->
+      <div th:replace="~{common/header}"></div>
+
+      <div class="content-container">
+        <!-- Left sidebar - Profile -->
+        <div class="left-sidebar">
+          <div th:replace="~{common/leftsidebar}"></div>
+        </div>
+
+        <!-- Middle Content Area -->
+        <div class="middle-content">
+          <form
+            id="profileForm"
+            th:action="@{/{memberNo}/profileupdate(memberNo=${memberNo})}"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <!-- 사진 업로드 -->
+            <div
+              class="upload-bio-container"
+              onclick="document.getElementById('uploadFile').click()"
+              style="cursor: pointer"
+            >
+              <input
+                type="file"
+                id="uploadFile"
+                name="uploadFile"
+                accept="image/*"
+                class="file-input"
+                style="display: none"
+              />
+
+              <div class="image-upload-box">
+                <img
+                  th:if="${profile != null}"
+                  th:src="@{${profile.imgPath + profile.imgRename}}"
+                  id="preview"
+                  alt="이미지 미리보기"
+                  style="
+                    display: block;
+                    max-width: 100%;
+                    height: auto;
+                    border-radius: 8px;
+                  "
+                />
+
+                <p
+                  th:if="${profile == null}"
+                  th:text="${'여기를 클릭해서 사진을 업로드하세요'}"
+                ></p>
+              </div>
+            </div>
+
+            <!-- 자기소개 텍스트 영역 -->
+            <div class="bio-section">
+              <textarea
+                id="bio-input"
+                name="bio"
+                class="bio-textarea"
+                placeholder="자기소개를 입력하세요..."
+                th:text="${profile?.profileContent}"
+              ></textarea>
+            </div>
+
+            <!-- 버튼 -->
+            <div class="post-actions">
+              <button type="submit" class="post-button">Profile Update</button>
+              <a th:href="@{/account/delete}" class="post-button"
+                >Delete Account</a
+              >
+            </div>
+          </form>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="right-sidebar">
+          <th:block th:replace="~{common/navSidebar}"></th:block>
+        </div>
+      </div>
+      <!-- content-container 닫기 -->
+
+      <!-- Footer -->
+      <th:block th:replace="~{common/footer}"></th:block>
+    </div>
+    <!-- container 닫기 -->
+	</div>
+	</div>
+
+    <!-- JS -->
+    <script th:inline="javascript">
+      const memberNo = /*[[${memberNo}]]*/ 0;
+    </script>
+    <script src="/js/profile/editprofile.js"></script>
+    <script src="/js/miniHome/leftSidebar.js"></script>
+  </body>
+</html>

@@ -1,0 +1,169 @@
+<div id="my-friend-list" style="padding-bottom: 20px">
+  <button
+      id="goto-imcoming-friend-button"
+      th:if="${session.loginMember != null 
+        and session.loginMember.memberNo == memberNo }"
+      class="right-align button-default"
+      th:text="${hasPendingFollowers?'새로운 일촌신청이 있습니다!':'incoming 일촌신청 리스트 확인'}"
+      onclick="showPendingFollowers()"
+      style="margin-top : 20px; margin-right : 10px;"
+      th:classappend="${hasPendingFollowers?' gold-button' : ''}"
+      ><!-- 이미 일촌관계일때 버튼 비활성화를 위한 th:attr-->
+      
+    </button>
+  <div class="title">
+    
+    
+    <ul
+      class="title-font"
+      th:text="${session.loginMember?.memberNo == memberNo?'내 ': member.memberName + '님의 '} + '일촌 목록'"
+    >
+      <!-- 250521 나중에 미니홈피 profile 구현 후 서버에서 member정보를 model 등에 구현했을떄 다시 수정할것.-->
+      내 일촌 목록
+    </ul>
+    
+    <button
+      id="send-friend-request-button"
+      th:if="${session.loginMember != null 
+        and session.loginMember.memberNo != memberNo 
+        and ilchonStatus == 0}"
+      class="left-align button-default"
+      th:attr="is-ilchon=${ilchonStatus}" 
+    ><!-- 이미 일촌관계일때 버튼 비활성화를 위한 th:attr-->
+      일촌 요청 보내기
+    </button>
+    <button id="already-send-friend-request-button"
+      th:if="${session.loginMember != null 
+        and session.loginMember.memberNo != memberNo 
+        and ilchonStatus == 1}"
+      class="left-align button-disabled" disabled>일촌요청 완료..</button>
+      <p id="already-send-friend-request-tag"
+      th:if="${session.loginMember != null 
+        and session.loginMember.memberNo != memberNo 
+        and ilchonStatus == 1}"
+      class="right-align" style="color:darkgrey">    ⏳ 이분한테 이미 일촌요청을 보냈어요! <br> 수락하실때까지 잠시만 기다려주세요...</button>
+      </p>
+    </button>
+    <p id="ilchon-flag" 
+    class="gold" 
+    th:if="${session.loginMember != null 
+      and session.loginMember.memberNo != memberNo 
+      and ilchonStatus == 2}"> 내 일촌</p>
+  </div>
+  <div th:unless="${#lists.isEmpty(ilchons)}">
+    <button
+      id="edit-button"
+      th:unless="${session.loginMember == null or session.loginMember.memberNo != memberNo}"
+      class="right-align button-default" style="margin-right:45px"
+    >
+      Edit
+    </button>
+    <div id="apply-cancel-button-div" class="right-align hidden">
+      
+      <button id="cancel-button" class="button-default hidden" style="margin-left:45px">Back</button><!-- apply버튼과 cancel버튼을 Back에 통합-->
+    </div>
+  </div>
+  <ul id="friend-list">
+    <th:block th:each="ilchon : ${ilchons}">
+      <li 
+        class="friend-item fade-slide"
+        th:attr="data-member-no=${ilchon.toMemberNo == memberNo?ilchon.fromMemberNo:ilchon.toMemberNo}"
+      >
+        <!-- session이랑 비교하도록 되어있음. -->
+        <div class="left-align">
+          <img
+            th:if="${ilchon.memberImg}"
+            th:src="@{${ilchon.memberImg}}"
+            width="20"
+            style="border-radius: 8px;"
+            class="friend-profile"
+          />
+          <img
+            th:unless="${ilchon.memberImg}"
+            th:src="@{/images/default/user.png}"
+            width="20"
+            style="border-radius: 8px;"
+            class="friend-profile"
+          />
+          <span class="font-bold color-gray friend-name" th:text="${ilchon.memberName}"
+            >별명</span
+          >
+        </div>
+
+        <div class="right-align">
+          <span
+            name="fromNickname"
+            class="color-gray"
+            th:text="${ilchon.fromNickname}"
+            >일촌명</span
+          >
+
+          <span name="ilchon-button" class="rounded-span right-align font-bold"
+            >일촌</span
+          >
+          <i class="fas fa-check-circle check-icon hidden"></i
+          ><!--DB 닉네임 업데이트 성공시 나타나는 V표식-->
+          <i class="fas fa-times-circle x-icon hidden"></i
+          ><!--DB 닉네임 업데이트 실패시 나타나는 V표식-->
+          <input
+            name="fromNickname-input"
+            class="border-red hidden"
+            rows="1"
+          ></input>
+          <button
+            name="unfollow-button"
+            class="rounded-unfollow-span right-align color-red hidden"
+            width="30px"
+            >Unfollow</span
+          >
+        </div>
+      </li>
+    </th:block>
+    <div style="justify-items: center; margin : 10px 0px 40px 0px;" th:if="${#lists.isEmpty(ilchons)}">
+      <li>일촌이 없습니다.</li>
+    </div>
+  </ul>
+
+  <!-- pagination -->
+   <div style="margin-top:40px">
+      <ul class="pagination" th:unless="${#lists.isEmpty(ilchons)}">
+      <!-- << -->
+      <li><span  th:onClick="|updateFriendList(1)|">&lt;&lt;</span></li>
+
+      <!-- < -->
+      <li><span  th:onClick="|updateFriendList(${pagination.prevPage})|">&lt;</span></li>
+
+      <!-- Page numbers -->
+      <th:block
+        th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
+      >
+        <li th:if="${i == pagination.currentPage}">
+          <span class="current" th:text="${i}" th:onClick="|updateFriendList(${i})|"></span>
+        </li>
+        <li th:if="${i != pagination.currentPage}">
+          <span  th:onClick="|updateFriendList(${i})|" th:text="${i}"></span>
+        </li>
+      </th:block>
+
+      <!-- > -->
+      <li><span  th:onClick="|updateFriendList(${pagination.nextPage})|">&gt;</span></li>
+
+      <!-- >> -->
+      <li>
+        <span  th:onClick="|updateFriendList(${pagination.maxPage})|">&gt;&gt;</span>
+      </li>
+      </ul>
+  </div>
+  <input
+    type="hidden"
+    id="curr-pagination"
+    th:value="${pagination.currentPage}"
+  />
+</div>
+
+<!--***********author : ahn     **********
+***************2505015 todo :   **********
+
+
+1. 다음/이전 pagenation (<,<<,>>,>) 에서 500에러 나지않게(로그인 세션 구현후 시험해볼것)
+2. 전용 friendList.css 파일 만들기-->

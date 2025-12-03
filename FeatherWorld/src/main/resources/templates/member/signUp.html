@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FeatherWorld - signUp</title>
+
+    <!-- 공통 스타일시트와 리소스 -->
+    <th:block th:replace="~{common/common}"></th:block>
+
+    <!-- 회원가입 페이지 전용 CSS -->
+    <link rel="stylesheet" href="/css/mainHome/signUp.css" />
+  </head>
+  
+  <body>
+
+    <!-- Header -->
+    <header>
+      <div th:replace="~{common/header}"></div>
+    </header>
+
+    <!-- Container starts -->
+    <main>
+      <div class="container signup-container">
+        <!-- Main content -->
+        <h2 class="title">회원가입</h2>
+
+        <form id="signupForm" action="/member/signup" method="post">
+          <!-- ID Field -->
+          <div class="form-group">
+            <label class="required" for="userId">EMAIL :</label>
+            <div class="input-with-button">
+              <input
+                type="email"
+                id="userId"
+                placeholder="ex) abc123@email.com"
+                name="memberEmail"
+              />
+              <button type="button" id="getAuthKey" class="btn">
+                Get Authkey
+              </button>
+            </div>
+            <span id="userIdMessage" class="validation-message"></span>
+          </div>
+
+          <!-- Auth Key section -->
+          <div class="form-group">
+            <label class="required" for="authKey">AUTHKEY :</label>
+            <div class="input-with-button">
+              <input
+                type="text"
+                id="authKey"
+                name="authKey"
+                placeholder="인증번호를 입력해주세요."
+              />
+              <button type="button" id="authKeyConfirm" class="btn">
+                Authkey Confirm
+              </button>
+            </div>
+            <span id="authKeyMessage" class="validation-message"></span>
+          </div>
+
+          <!-- Name and Phone Fields -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="required">NAME :</label>
+              <input
+                type="text"
+                name="memberName"
+                id="memberName"
+                placeholder="이름"
+                maxlength="10"
+              />
+              <span id="nameMessage" class="validation-message"></span>
+            </div>
+            <div class="form-group">
+              <label class="required" for="phone">PHONE :</label>
+              <input
+                type="tel"
+                id="phone"
+                placeholder="('-'제외)전화번호를 입력해 주세요."
+                name="memberTel"
+              />
+              <span id="phoneMessage" class="validation-message"></span>
+            </div>
+          </div>
+
+          <!-- Password Fields -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="required" for="password">PASSWORD :</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="영문, 숫자, !@#$%를 포함한 8자 ~ 12자"
+                name="memberPw"
+              />
+              <span id="passwordMessage" class="validation-message"></span>
+            </div>
+            <div class="form-group">
+              <label class="required" for="passwordCheck"
+                >PASSWORD CHECK :</label
+              >
+              <input
+                type="password"
+                id="passwordCheck"
+                placeholder="영문, 숫자, !@#$%를 포함한 8자 ~ 12자"
+                name="memberPwConfirm"
+              />
+              <span id="passwordCheckMessage" class="validation-message"></span>
+            </div>
+          </div>
+
+          <!-- Address Fields -->
+          <div class="form-group">
+            <label>ADDRESS :</label>
+            <div class="address-search">
+              <input
+                type="text"
+                id="zipcode"
+                placeholder="우편번호"
+                name="memberAddress"
+                readonly
+              />
+              <input
+                type="text"
+                id="roadAddress"
+                placeholder="도로명 / 지번 주소"
+                name="memberAddress"
+                readonly
+              />
+              <button type="button" id="searchAddress" class="btn">
+                Search Address
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="addressDetail">ADDRESS DETAIL :</label>
+            <input
+              type="text"
+              id="addressDetail"
+              placeholder="상세 주소"
+              name="memberAddress"
+            />
+            <span id="addressDetailMessage" class="validation-message"></span>
+          </div>
+
+          <!-- Buttons -->
+          <div class="btn-container">
+            <button type="button" id="mainBtn" class="btn">Main</button>
+            <button type="submit" id="signupBtn" class="btn">Signup</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div th:replace="~{common/footer}"></div>
+    </footer>
+
+
+    <!-- Daum 우편번호 서비스 스크립트 -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/js/member/signUp.js"></script>
+  </body>
+</html>

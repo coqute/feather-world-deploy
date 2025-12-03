@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profile Update</title>
+
+    <!-- 공용 CSS/JS -->
+    <th:block th:replace="~{common/common}"></th:block>
+
+    <!-- update 전용 CSS -->
+    <link rel="stylesheet" href="/css/profile/profileupdate.css" />
+  </head>
+  <body class="profileupdate-page">
+    <div class="center-page">
+      <div class="center-content">
+        <div class="container">
+          <!-- Header Fragment -->
+          <div th:replace="~{common/header}"></div>
+
+          <div class="content-container">
+            <!-- Left sidebar - Profile -->
+            <div class="left-sidebar">
+              <div th:replace="~{common/leftsidebar}"></div>
+            </div>
+
+            <!-- Middle Content Area -->
+            <div class="middle-content">
+              <form
+                id="profileForm"
+                th:action="@{/{memberNo}/profileupdate(memberNo=${memberNo})}"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <!-- 사진 업로드 -->
+                <div
+                  class="upload-bio-container"
+                  onclick="document.getElementById('uploadFile').click()"
+                  style="cursor: pointer"
+                >
+                  <input
+                    type="file"
+                    id="uploadFile"
+                    name="uploadFile"
+                    accept="image/*"
+                    class="file-input"
+                    style="display: none"
+                  />
+
+                  <div class="image-upload-box">
+                    <img
+                      th:src="${profile != null} ? ${profile.imgPath + profile.imgRename} : #{user.default.profile}"
+                      id="preview"
+                      alt="이미지 미리보기"
+                      style="display: block; max-width: 100%; height: auto"
+                    />
+                  </div>
+                </div>
+
+                <!-- 자기소개 텍스트 영역 -->
+                <div class="bio-section">
+                  <textarea
+                    id="bio-input"
+                    name="bio"
+                    class="bio-textarea"
+                    placeholder="자기소개를 입력하세요..."
+                    th:text="${profile?.profileContent}"
+                  ></textarea>
+                </div>
+
+                <!-- 버튼 영역 -->
+                <div class="post-actions">
+                  <button
+                    id="submitBtn"
+                    class="back-button"
+                    type="button"
+                    onclick="history.back()"
+                  >
+                    Back
+                  </button>
+                  <button class="confirm-button" type="submit">Confirm</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Right Sidebar -->
+            <th:block th:replace="~{common/navSidebar}"></th:block>
+          </div>
+
+          <!-- Footer -->
+          <th:block th:replace="~{common/footer}"></th:block>
+        </div>
+      </div>
+    </div>
+
+    <script th:inline="javascript">
+      const memberNo = /*[[${memberNo}]]*/ 0;
+    </script>
+    <script src="/js/profile/profileupdate.js"></script>
+    <script src="/js/miniHome/leftSidebar.js"></script>
+  </body>
+</html>

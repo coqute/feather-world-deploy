@@ -1,0 +1,216 @@
+.border-inner {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+textarea {
+  text-align: right;
+  padding: 3px;
+}
+.friend-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 20px;
+  width: auto;
+  border: 1px solid #e0e0e0; /*#e0e0e0*/
+  background-color: #f9f9f9; /*#f9f9f9*/
+  border-radius: 5px;
+  padding: 15px;
+  margin: 8px 40px 8px 40px;
+  overflow: hidden;
+}
+.friend-item-sended {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 20px;
+  width: auto;
+  border: 1px solid #e0e0e0; /*#e0e0e0*/
+  background-color: #f9f9f9; /*#f9f9f9*/
+  border-radius: 5px;
+  padding: 15px;
+  margin: 8px 40px 8px 40px;
+  overflow: hidden;
+}
+
+.friend-item > * {
+  display: flex;
+  margin-left: 10px;
+
+  align-self: center;
+}
+
+.rounded-span {
+  display: inline-block; /* 또는 block */
+  border: 1px solid #ccc;
+  align-content: center;
+  align-items: center;
+  align-self: center;
+  border-radius: 20px;
+  background-color: #ddd;
+  padding: 10px;
+  margin: 5px 10px;
+  height: 15px;
+  font-size: 12px;
+}
+
+.rounded-unfollow-span {
+  display: inline-block; /* 또는 block */
+
+  align-content: center;
+  align-items: center;
+  align-self: center;
+  border-radius: 20px;
+  background-color: #ddd;
+  padding: 10px;
+  margin: 5px 10px;
+  height: 15px;
+  font-size: 12px;
+}
+* > .left-align {
+  align-items: center;
+}
+* > .right-align {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+span {
+  margin: 0px 10px 0px 10px;
+}
+
+.color-gray {
+  color: #8e8e8e;
+}
+.color-red {
+  color: #912d2d;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+.title {
+  display: flex;
+  align-content: center;
+}
+.title {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.title-font {
+  font-weight: bold;
+  margin: 10px;
+  font-size: xx-large;
+  justify-self: center;
+}
+
+.semi-title-font {
+  font-weight: bold;
+  margin: 10px;
+  font-size: large;
+  justify-self: flex-start;
+}
+.hidden {
+  display: none !important;
+}
+
+*[name="unfollow-button"]:hover {
+  background-color: #912d2d;
+  color: white;
+  border: 1px solid #ccc;
+  align-items: center;
+  width: auto;
+}
+.button-default {
+  background-color: #9f2120;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button-default:hover {
+  opacity: 90%;
+}
+
+.check-icon {
+  color: green;
+  margin-left: 5px;
+  animation: fadeOut 1.5s ease-out forwards;
+}
+.x-icon {
+  color: red;
+  margin-left: 5px;
+  animation: fadeOut 1.5s ease-out forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+.hover-green:hover {
+  background-color: #01d312;
+  color: rgb(36, 36, 36);
+  border: 1px solid #ccc;
+  align-items: center;
+  width: auto;
+}
+
+*[name="deny-button"]:hover {
+  background-color: #912d2d;
+  color: white;
+  border: 1px solid #ccc;
+  align-items: center;
+  width: auto;
+}
+.disabled-button {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+/* 제거 애니메이션 클래스 */
+.fade-slide {
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.fade-slide.removing {
+  transform: translateX(-100%); /* 왼쪽으로 이동 */
+  opacity: 0; /* 투명하게 */
+}
+
+.fade-slide.deleting {
+  transform: translateX(100%); /* 오른쪽으로 이동 */
+  opacity: 0; /* 투명하게 */
+}
+
+[name="deny-button"],
+[name="unfollow-button"],
+[name="accept-button"] {
+  cursor: pointer;
+}

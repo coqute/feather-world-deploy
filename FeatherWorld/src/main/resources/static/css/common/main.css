@@ -1,0 +1,670 @@
+  /* ===== 기본 스타일 ===== */
+  * {
+    box-sizing: border-box;
+    font-family: "Pretendard-Regular";
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: #f5f5f5;
+  }
+  /* 새로운 wrapper 클래스만 추가 */
+  .center-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start; /* 완전한 가운데가 아닌 약간 위쪽 */
+    justify-content: center;
+    padding-top: 8vh; /* 화면 높이의 8% 정도 위에서 시작 */
+    padding-bottom: 4vh;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #f5f5f5;
+  }
+
+  .center-content {
+    width: 100%;
+    max-width: 1200px;
+    /* 내부 콘텐츠는 기존 스타일 그대로 유지됨 */
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  button {
+    margin: 2px;
+  }
+
+  /* ===== 컨테이너 스타일 ===== */
+  .container {
+    max-width: 1200px;
+    margin: auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  /* ===== 헤더 스타일 ===== */
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: white;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .logo img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .site-title {
+    font-family: "Pacifico", cursive;
+    color: #9f2120;
+    font-weight: 400;
+    font-size: 28px;
+    margin-left: 10px;
+  }
+
+  .site-subtitle {
+    font-size: 18px;
+    color: #555;
+  }
+
+  /* 헤더 우측 사용자 정보 영역 */
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .user-name {
+    font-size: 20px;
+    color: #333;
+    font-weight: 600;
+  }
+
+  .home-icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background-color: #9f2120;
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+  }
+
+  .home-icon-link:hover {
+    background-color: #c62828;
+    color: white;
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(159, 33, 32, 0.2);
+  }
+
+  /* ===== 콘텐츠 컨테이너 스타일 ===== */
+  .content-container {
+    display: flex;
+    min-height: 600px;
+  }
+
+  /* 좌측 사이드바 */
+  .left-sidebar {
+    min-width: 250px;
+    padding: 20px;
+    border-right: 1px solid #e0e0e0;
+  }
+
+  /* 우측 사이드바 */
+  .right-sidebar {
+    min-width: 200px;
+    padding: 20px;
+    border-left: 1px solid #e0e0e0;
+  }
+
+  /* 네비게이션 사이드바 */
+  .nav-sidebar {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-sidebar > a {
+    display: flex;
+    align-items: center;
+    padding: 12px 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .nav-item > span {
+    display: inline-block;
+    width: 20px;
+    margin-right: 10px;
+    text-align: center;
+  }
+
+  .nav-sidebar > a:hover {
+    background-color: #9f2120;
+    color: white;
+    border-color: #9f2120;
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(159, 33, 32, 0.2);
+  }
+
+  .nav-sidebar .nav-item i {
+    margin-right: 10px;
+  }
+
+  /* ===== 푸터 ===== */
+  .footer-container {
+    text-align: center;
+    padding: 15px 0;
+    background-color: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    color: #777;
+    font-size: 14px;
+  }
+
+  /* ===== 페이지네이션 ===== */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .pagination span {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .pagination span:hover,
+  .pagination span.current {
+    background-color: #9f2120;
+    color: white;
+    border-color: #9f2120;
+  }
+
+  /* ===== 글쓰기 버튼 ===== */
+  .write-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+
+  .write-button > span {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #9f2120;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .write-button a:hover {
+    opacity: 90%;
+    cursor: pointer;
+  }
+
+  /* ===== 아이콘 ===== */
+  .icon-edit,
+  .icon-delete {
+    color: #777;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+
+  .icon-edit:hover,
+  .icon-delete:hover {
+    color: #c62828;
+  }
+
+  /* ===== MiniHome 페이지 전용 CSS ===== */
+
+  /* MiniHome 페이지 레이아웃 */
+  body.minihome-page .left-sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    flex: 0 0 250px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.minihome-page #leftProfileContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 프로필 컨테이너 */
+  #leftProfileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 10px;
+    background-color: white;
+    text-align: center;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+  }
+
+  /* 방문자 통계 */
+  #profileStatsSection {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 15px;
+    text-align: center;
+    width: 100%;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+  }
+
+  #profileStatsSection #todayCount,
+  #profileStatsSection #totalCount {
+    color: #9f2120;
+    font-weight: bold;
+  }
+
+  /* 프로필 이미지 */
+  #profileImageContainer {
+    position: relative;
+    margin-bottom: 15px;
+  }
+
+  #profileMainImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #f0f0f0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  #profileMainImage:hover {
+    border-color: #9f2120;
+    transform: scale(1.05);
+  }
+
+  /* 편집 모드 프로필 이미지 */
+  #profileMainImage.edit-mode {
+    border-color: #9f2120;
+    box-shadow: 0 0 0 2px rgba(159, 33, 32, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  #profileImageEditIcon, #profileImageDeleteIcon {
+    position: absolute;
+    top: 2px;
+    background-color: #9f2120;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 10px;
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: none;
+  }
+  #profileImageDeleteIcon {
+    right: 2px;
+  }
+
+  #profileImageEditIcon:hover,
+  #profileImageDeleteIcon:hover {
+    background-color: #c62828;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(159, 33, 32, 0.3);
+  }
+
+  /* 사용자 정보 */
+  #profileInfoSection {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  #profileUsernameDisplay {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  #profileEmailDisplay {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 12px;
+  }
+
+  /* 팔로우 통계 */
+  #profileFollowStats {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+  }
+
+  #profileFollowerCount,
+  #profileFollowingCount {
+    text-align: center;
+    position: relative;
+  }
+
+  #profileFollowerNumber,
+  #profileFollowingNumber {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #9f2120;
+    margin-bottom: 3px;
+  }
+
+  #profileFollowerLabel,
+  #profileFollowingLabel {
+    font-size: 10px;
+    color: #888;
+    text-transform: uppercase;
+  }
+
+  /* 알림 벨 아이콘 */
+  .notification-bell {
+    color: #ff6b6b;
+    font-size: 12px;
+    margin-left: 5px;
+    cursor: pointer;
+    animation: ring 2s ease-in-out infinite;
+    position: relative;
+  }
+
+  .notification-bell:hover {
+    color: #e55656;
+    transform: scale(1.1);
+  }
+
+  @keyframes ring {
+    0%,
+    90%,
+    100% {
+      transform: rotate(0deg);
+    }
+    10%,
+    30% {
+      transform: rotate(-10deg);
+    }
+    20%,
+    40% {
+      transform: rotate(10deg);
+    }
+  }
+
+  /* 버튼 영역 */
+  #profileActionButtons {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  /* 일반 모드 버튼들 */
+  #profileOwnerButtons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  #profileEditBtn,
+  #profileLogoutBtn {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  #profileEditBtn {
+    background-color: #9f2120;
+    color: white;
+  }
+
+  #profileEditBtn:hover {
+    background-color: #c62828;
+    transform: translateY(-1px);
+  }
+
+  #profileLogoutBtn {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  #profileLogoutBtn:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+  }
+
+  /* 편집 모드 버튼들 */
+  #profileEditModeButtons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  #profileSaveBtn,
+  #profileCancelBtn {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+
+  #profileSaveBtn {
+    background-color: #28a745;
+    color: white;
+  }
+
+  #profileSaveBtn:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+  }
+
+  #profileCancelBtn {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  #profileCancelBtn:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(108, 117, 125, 0.3);
+  }
+
+  /* 타인 프로필 버튼 */
+  #profileOtherButtons {
+    width: 100%;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+  }
+
+  #profileFollowBtn {
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #9f2120;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  #profileFollowBtn:hover {
+    background-color: #c62828;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(159, 33, 32, 0.3);
+  }
+
+  /* 일촌 상태 */
+  .ilchon-status,
+  .pending-status {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .ilchon-badge,
+  .pending-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .ilchon-badge {
+    color: #ffffff;
+    background-color: #c62828;
+  }
+
+  .pending-badge {
+    background-color: #c62828;
+    color: #212529;
+  }
+
+  .ilchon-badge i,
+  .pending-badge i {
+    font-size: 10px;
+  }
+
+  /* Bio 섹션 */
+  #profileBioContainer {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  #profileBioTitle {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  #profileBioContent {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    min-height: 50px;
+    border: 1px solid #e0e0e0;
+  }
+
+  #profileBioDisplay {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  /* Bio 편집 모드 */
+  #profileBioDisplay[contenteditable="true"] {
+    background-color: #fff9f9 !important;
+    border: 1px dashed #9f2120 !important;
+    padding: 8px !important;
+    border-radius: 4px !important;
+    cursor: text;
+    min-height: 60px;
+    outline: none;
+  }
+
+  #profileBioDisplay[contenteditable="true"]:focus {
+    border-color: #c62828 !important;
+    box-shadow: 0 0 0 2px rgba(159, 33, 32, 0.2);
+  }
+
+  /* Surfing 버튼 */
+  #profileSurfingSection {
+    width: 100%;
+  }
+
+  #profileSurfingBtn {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: #9f2120;
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+
+  #profileSurfingBtn:hover {
+    background-color: #c62828;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(159, 33, 32, 0.3);
+  }
+
+  /* ===== 반응형 ===== */
+  @media (max-width: 1024px) {
+    .content-container {
+      flex-direction: column;
+    }
+
+    .left-sidebar,
+    .right-sidebar {
+      border: none;
+    }
+
+    .nav-sidebar {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }

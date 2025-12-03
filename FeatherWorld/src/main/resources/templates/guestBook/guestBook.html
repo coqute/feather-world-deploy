@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="#{app.name}">Feathers McGrew Semi Project</title>
+
+    <th:block th:replace="~{common/common}"></th:block>
+    <link rel="stylesheet" href="/css/board/boardType.css" />
+    <link rel="stylesheet" href="/css/guestBook/guestBook.css" />
+  </head>
+  <body>
+	<div class="center-page">
+	     <div class="center-content">
+    <div class="container">
+      <!-- 헤더 Include -->
+      <th:block th:replace="~{common/header}"></th:block>
+
+      <div class="content-container">
+        <!-- 좌측  프로필 들어올 공간 Include -->
+        <div class="left-sidebar">
+          <div th:replace="~{common/leftsidebar}"></div>
+        </div>
+
+        <!-- 중앙 방명록 목록 -->
+        <div class="main-content">
+          <!-- 방명록 목록 (JS로 동적 렌더링) -->
+          <div class="guestbook-list" id="guestbook-list">
+            <!-- 서버에서 전달된 guestBookList가 있을 경우 -->
+            <div
+              th:if="${guestBookList != null}"
+              th:each="item : ${guestBookList}"
+              class="guestbook-item"
+            >
+              <div class="guestbook-wrap">
+                <div class="guestbook-main">
+                  <p class="guestbook-writer">
+                    <!-- 프로필 이미지 없을 경우 -->
+                    <a th:href="@{|/${item.visitor?.memberNo}/minihome|}">
+                      <img
+                        th:if="${#strings.isEmpty(item.visitor?.memberImg)}"
+                        th:src="@{/images/default/user.png}"
+                      />
+
+                      <!-- 프로필 이미지 있을 경우 -->
+
+                      <img
+                        th:if="${!#strings.isEmpty(item.visitor?.memberImg)}"
+                        th:src="${item.visitor.memberImg}"
+                      />
+                    </a>
+                  </p>
+                  <!-- 비밀글 처리 -->
+                  <div
+                    class="guestbook-content"
+                    th:text="${item.secret == 1 and loginMember?.memberNo != item.visitor?.memberNo and loginMember?.memberNo != ownerNo 
+                        ? '🔒 비밀글입니다.' : item.guestBookContent}"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="guestbook-info">
+                <a
+                  th:href="@{|/${item.visitor?.memberNo}/minihome|}"
+                  th:text="${item.visitor?.memberName}"
+                  >작성자</a
+                >
+                <div
+                  class="guestbook-date"
+                  th:text="${item.guestBookWriteDate}"
+                >
+                  작성일
+                </div>
+              </div>
+
+              <!-- 작성자 본인에게만 수정/삭제 버튼 노출 -->
+              <div
+                th:if="${loginMember != null 
+                and item.visitor != null 
+                and loginMember.memberNo.equals(item.visitor.memberNo)}"
+                class="guestbook-actions"
+              >
+                <button
+                  id="edit-btn"
+                  th:onclick="|showUpdateGuestBook(${item.guestBookNo}, this); return false;|"
+                >
+                  수정
+                </button>
+                <button
+                  id="delete-btn"
+                  th:onclick="|deleteGuestBook(${item.guestBookNo}); return false;|"
+                >
+                  삭제
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="whitespace"></div>
+
+          <!-- 페이징 영역 -->
+          <div id="guestbook-pagination" class="guestbook-pagination">
+            <!-- JS가 동적으로 게시글 목록 생성 -->
+            <!-- JS가 동적으로 페이징 버튼 생성 -->
+          </div>
+
+          <!-- 방명록 작성 부분 -->
+          <div class="guestBook-write-area">
+            <input
+              type="hidden"
+              id="loginMemberNo"
+              th:value="${loginMember?.memberNo}"
+            />
+            <input type="hidden" id="ownerNo" th:value="${ownerNo}" />
+
+            <label style="display: none">
+              <input type="checkbox" id="secretCheck" />
+              비밀글
+            </label>
+            <textarea
+              class="guestBook-textbox"
+              id="guestBookContent"
+              placeholder="방명록을 작성해보세요 :)"
+              required
+            ></textarea>
+            <div class="write-button-wrapper">
+              <!-- 비밀글 토글/좌물쇠 아이콘 -->
+              <div class="icon-bar">
+                <i id="lockIcon" class="fa-solid fa-lock-open"></i>
+                <i
+                  id="toggleSecret"
+                  class="fa-solid fa-toggle-off"
+                  style="cursor: pointer"
+                ></i>
+              </div>
+              <button id="addGuestBook">Write</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- /.main-content -->
+
+        <!-- 우측 네비게이션 바 Include -->
+        <th:block th:replace="~{common/navSidebar}"></th:block>
+      </div>
+
+      <!-- 푸터 Include -->
+      <th:block th:replace="~{common/footer}"></th:block>
+    </div>
+</div>
+</div>
+
+    <script th:inline="javascript">
+      // message.properties에서 얻어온 기본이미지
+      const userDefaultImage = /*[[#{user.default.image}]]*/ "기본이미지";
+      const memberNo = /*[[${memberNo}]]*/ 0;
+    </script>
+
+    <script src="/js/guestBook/guestBook.js"></script>
+    <script src="/js/miniHome/leftSidebar.js"></script>
+    <script src="/js/miniHome/miniHome.js"></script>
+  </body>
+</html>

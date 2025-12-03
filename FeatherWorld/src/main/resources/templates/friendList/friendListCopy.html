@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FeatherWorld - FriendList</title>
+
+    <!-- 공통 CSS -->
+    <th:block th:replace="~{common/common}"></th:block>
+
+    <!-- 미니홈피 전용 CSS -->
+    <link rel="stylesheet" href="/css/miniHome/miniHome.css" />
+    <link href="/css/friendList/friendListPart.css" rel="stylesheet" />
+  </head>
+  <body class="minihome-page">
+    <div class="center-page">
+      <div class="center-content">
+        <div class="container">
+          <!-- Header Fragment -->
+          <div th:replace="~{common/header}"></div>
+
+          <div class="content-container">
+            <!-- Left sidebar - Profile -->
+            <div class="left-sidebar">
+              <div th:replace="~{common/leftsidebar}"></div>
+            </div>
+
+            <!-- Middle Content Area -->
+            <div name="friend-list" class="main-content overflow-content-y">
+              <div
+                style="padding-bottom: 20px"
+                th:replace="~{friendList/friendListPart}"
+              ></div>
+              <!-- Right sidebar -->
+            </div>
+            <div th:replace="~{common/navsidebar}"></div>
+          </div>
+          <div th:replace="~{common/footer}"></div>
+          <!-- Footer -->
+        </div>
+      </div>
+    </div>
+
+    <!-------------------------------------------------------------------->
+    <script th:inline="javascript">
+      const memberNo = /*[[${memberNo}]]*/ 0;
+    </script>
+
+    <script src="/js/miniHome/miniHome.js"></script>
+
+    <script src="/js/miniHome/leftSidebar.js"></script>
+    <script src="/js/friendList/friendList.js"></script>
+    <script
+      src="/js/friendList/friendListPart.js"
+      th:inline="javascript"
+    ></script>
+  </body>
+</html>

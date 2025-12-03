@@ -1,0 +1,387 @@
+/* 메인 콘텐츠 스타일 */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: white;
+}
+
+/* 뒤로가기 버튼 */
+.back-button {
+    margin-bottom: 20px;
+}
+
+.back-button span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #9f2120;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.back-button span:hover {
+    background-color: #7d1a19;
+    transform: translateX(-3px);
+}
+
+/* 게시글 수정 폼 */
+.board-update {
+    width: 100%;
+}
+
+.board-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 입력 그룹 */
+.input-group {
+    width: 100%;
+}
+
+.input-group.mb-4 {
+    margin-bottom: 20px;
+}
+
+/* 제목 입력 */
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #9f2120;
+    box-shadow: 0 0 0 3px rgba(159, 33, 32, 0.1);
+}
+
+.form-control::placeholder {
+    color: #999;
+}
+
+/* 내용 입력 영역 */
+.content-area {
+    position: relative;
+    width: 100%;
+}
+
+.content-area textarea {
+    width: 100%;
+    min-height: 400px;
+    resize: vertical;
+    font-family: "Pretendard-Regular", sans-serif;
+    line-height: 1.6;
+}
+
+/* 바이트 카운터 */
+.byte-counter {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    color: #777;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* 기존 이미지 컨테이너 */
+.existing-images-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.existing-images-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #9f2120;
+}
+
+.existing-images-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(100px, 1fr));
+    gap: 15px;
+}
+
+.existing-image-item {
+    position: relative;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.existing-image-item:hover {
+    border-color: #9f2120;
+    box-shadow: 0 4px 8px rgba(159, 33, 32, 0.2);
+}
+
+.existing-image-item.deleted {
+    opacity: 0.5;
+    border-color: #dc3545;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+.existing-image-item.deleted::after {
+    content: "삭제 예정";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(220, 53, 69, 0.9);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.existing-image-item.deleted img {
+    filter: grayscale(100%) brightness(0.7);
+}
+
+.existing-image-item.deleted .image-info {
+    background-color: #f8f9fa;
+}
+
+.existing-image-item.deleted .image-name {
+    color: #999;
+    text-decoration: line-through;
+}
+
+.existing-image-item img {
+    transition: filter 0.3s ease;
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.image-info {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+
+.image-name {
+    font-size: 12px;
+    color: #666;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+}
+
+.delete-existing-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.delete-existing-btn.restore {
+    background-color: #28a745;
+}
+
+.delete-existing-btn.restore:hover {
+    background-color: #218838;
+}
+
+.delete-existing-btn:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+/* 새 이미지 업로드 영역 */
+.image-upload-container {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px dashed #e0e0e0;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.upload-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #9f2120;
+}
+
+.image-upload-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.image-slot {
+    aspect-ratio: 1;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.image-slot:hover, .image-slot.drag-over {
+    border-color: #9f2120;
+    background-color: #fafafa;
+}
+
+.image-slot.has-image {
+    border-style: solid;
+    border-color: #9f2120;
+}
+
+.image-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.image-slot .placeholder {
+    font-size: 24px;
+    color: #ccc;
+}
+
+.image-slot .remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background-color: #9f2120;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+    display: none;
+}
+
+.image-slot.has-image:hover .remove-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 버튼 그룹 */
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-cancel,
+.btn-confirm {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 100px;
+}
+
+.btn-cancel {
+    background-color: #f5f5f5;
+    color: #666;
+    border: 2px solid #e0e0e0;
+}
+
+.btn-cancel:hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.btn-confirm {
+    background-color: #9f2120;
+    color: white;
+}
+
+.btn-confirm:hover {
+    background-color: #7d1a19;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(159, 33, 32, 0.3);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 15px;
+    }
+
+    .existing-images-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .image-upload-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-cancel,
+    .btn-confirm {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .existing-images-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .image-upload-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .content-area textarea {
+        min-height: 300px;
+    }
+
+    .existing-images-title,
+    .upload-title {
+        font-size: 14px;
+    }
+}

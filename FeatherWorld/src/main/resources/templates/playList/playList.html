@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>YouTube Embed</title>
+    <!-- 공용 css/js 추가 -->
+    <th:block th:replace="~{common/common}"></th:block>
+    <!-- myPage 전용 CSS -->
+    <link rel="stylesheet" href="/css/playList/playList.css" />
+  </head>
+
+  <body>
+	<div class="center-page">
+	     <div class="center-content">
+    <div class="container">
+      <!-- 헤더 Include -->
+      <th:block th:replace="~{common/header}"></th:block>
+      <div class="container-main">
+        <div class="left-sidebar">
+          <div th:replace="~{common/leftsidebar}"></div>
+        </div>
+
+        <!-- middle -->
+        <div class="middle-sidebar">
+          <!-- 본인 홈피 보는중일때 (로그인했고 본인 페이지) -->
+          <th:block
+            th:if="${session.loginMember != null and session.loginMember.memberNo == memberNo}"
+          >
+            <div class="header">
+              <input
+                type="text"
+                id="youtubeUrl"
+                placeholder="Youtube URL 입력 후 엔터를 입력하세요."
+              />
+              <div id="videoContainer">
+                <!-- 홈피 주인이 등록한 플리가 있을 때-->
+                <th:block th:if="${youtubeUrl != null}">
+                  <div class="embed-container">
+                    <iframe
+                      th:src="${youtubeUrl}"
+                      allowfullscreen
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    >
+                    </iframe>
+                  </div>
+                </th:block>
+
+                <!-- 홈피 주인이 등록한 플리가 없을 때-->
+                <th:block th:if="${youtubeUrl == null}">
+                  <div class="embed-container">
+                    <p>
+                      위 입력창에 Youtube URL 입력 후 엔터를 입력하세요.
+                      <br />
+                      해당 위치에 Youtube 미리보기가 제공됩니다.
+                    </p>
+                  </div>
+                </th:block>
+              </div>
+
+              <!-- confirm 버튼 -->
+              <div class="post-actions">
+                <button class="post-button" id="confirmYouTubeBtn">
+                  <i class="fas fa-check"></i>
+                  <!-- 플리가 있을 때 -->
+                  <th:block th:if="${youtubeUrl != null}"> Edit </th:block>
+                  <!-- 플리가 없을 때 -->
+                  <th:block th:unless="${youtubeUrl != null}"> Save </th:block>
+                </button>
+
+                <!-- 플리가 있을 때 삭제버튼 노출-->
+                <th:block th:if="${youtubeUrl != null}">
+                  <button
+                    class="post-button"
+                    id="deleteYouTubeBtn"
+                    th:data-url="${youtubeUrl}"
+                  >
+                    <i class="fas fa-check"></i> Delete
+                  </button>
+                </th:block>
+              </div>
+            </div>
+          </th:block>
+
+          <!-- 다른사람 홈피 보는중일때 OR 로그인 안한 상태 -->
+          <th:block
+            th:if="${session.loginMember == null} or ${session.loginMember.memberNo != memberNo}"
+          >
+            <div class="header">
+              <div id="videoContainer">
+                <!-- 홈피 주인이 등록한 플리가 있을 때-->
+                <th:block th:if="${youtubeUrl != null}">
+                  <div class="embed-container">
+                    <iframe
+                      th:src="${youtubeUrl}"
+                      allowfullscreen
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    >
+                    </iframe>
+                  </div>
+                </th:block>
+
+                <!-- 홈피 주인이 등록한 플리가 없을 때-->
+                <th:block th:unless="${youtubeUrl != null}">
+                  <p>아직 등록된 플레이리스트가 없어요!</p>
+                </th:block>
+              </div>
+            </div>
+          </th:block>
+        </div>
+
+        <th:block th:replace="~{common/navSidebar}"></th:block>
+      </div>
+      <!-- 푸터 추가-->
+      <th:block th:replace="~{common/footer}"></th:block>
+    </div>
+</div>
+</div>
+    <script th:inline="javascript">
+      const memberNo = /*[[${memberNo}]]*/ "회원번호";
+      const loginMemberNo =
+        /*[[${session.loginMember?.memberNo}]]*/ "로그인회원번호";
+    </script>
+
+    <script src="/js/playList/playList.js"></script>
+    <script src="/js/miniHome/leftSidebar.js"></script>
+  </body>
+</html>

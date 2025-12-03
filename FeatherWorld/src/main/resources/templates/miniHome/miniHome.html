@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FeatherWorld - MiniHome</title>
+
+    <!-- 공통 CSS -->
+    <th:block th:replace="~{common/common}"></th:block>
+
+    <!-- 미니홈피 전용 CSS -->
+    <link rel="stylesheet" href="/css/miniHome/miniHome.css" />
+  </head>
+
+  <body class="minihome-page">
+	
+    <div class="center-page">
+      <div class="center-content">
+        <div class="container">
+          <!-- Header Fragment -->
+          <div th:replace="~{common/header}"></div>
+
+          <div class="content-container">
+            <!-- Left sidebar - Profile -->
+            <div class="left-sidebar">
+              <div th:replace="~{common/leftsidebar}"></div>
+            </div>
+
+            <!-- Middle Content Area -->
+            <div class="main-content">
+              <div class="boardContainer">
+                <!-- Board Summary Links -->
+                <div class="boardSummary">
+                  <div class="summary-links">
+                    <span
+                      >Board Total (<span th:text="${totalBoardCount ?: 0}"
+                        >0</span
+                      >)</span
+                    >
+                    <span
+                      >Guest Book Total (<span
+                        th:text="${totalGuestBookCount ?: 0}"
+                        >0</span
+                      >)</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Recent Board 헤더 추가 -->
+                <div class="recent-board-header">Recent Board</div>
+
+                <!-- 최근 게시글 -->
+                <div class="small-image-row">
+                  <!-- 게시글이 없을 때 -->
+                  <div
+                    th:if="${#lists.isEmpty(recentBoards)}"
+                    class="no-recent-posts"
+                  >
+                    <p>최근 게시글이 없습니다</p>
+                  </div>
+
+                  <!-- 게시글이 있을 때 -->
+                  <div
+                    th:if="${not #lists.isEmpty(recentBoards)}"
+                    class="recent-posts"
+                  >
+                    <div class="post-box" th:each="board : ${recentBoards}">
+                      <a
+                        th:href="@{/{memberNo}/board/{boardCode}/{boardNo}(memberNo=${memberNo}, boardCode=${board.boardCode}, boardNo=${board.boardNo})}"
+                      >
+                        <th:block th:unless="${board.thumbnail == null}">
+                          <img
+                            th:src="${board.thumbnail}"
+                            alt="썸네일"
+                            class="thumbnail"
+                          />
+                        </th:block>
+                        <th:block th:if="${board.thumbnail == null}">
+                          <img
+                            th:src="#{thumbnail.default.image}"
+                            alt="썸네일"
+                            class="thumbnail"
+                          />
+                        </th:block>
+                        <div class="post-title" th:text="${board.boardTitle}">
+                          제목
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 일촌평 리스트 헤더 -->
+                <div class="comment-header">
+                  <div class="title">Friend Comment List</div>
+
+                  <!-- Write 버튼 - 일촌평 목록과 별개로 항상 조건 확인 -->
+                  <div
+                    th:if="${session.loginMember != null} and ${session.loginMember.memberNo != memberNo} and ${isIlchon}"
+                    class="comment-write-btn"
+                  >
+                    <button
+                      type="button"
+                      class="btn-write-comment"
+                      onclick="openCommentModal()"
+                    >
+                      <i class="fas fa-edit"></i> Write
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 일촌평 목록 영역 (Write 버튼과 별개) -->
+                <div class="ilchon-comments-section">
+                  <!-- 일촌평이 없을 때 -->
+                  <div
+                    th:if="${#lists.isEmpty(ilchonComments)}"
+                    class="miniHome-no-comments"
+                  >
+                    <p>아직 일촌평이 없습니다.</p>
+                  </div>
+
+                  <!-- 일촌평 목록 - DTO 필드명 사용 -->
+                  <div
+                    th:if="${not #lists.isEmpty(ilchonComments)}"
+                    class="ilchon-comment-list"
+                  >
+                    <ul>
+                      <li th:each="comment : ${ilchonComments}">
+                        <div class="ilchon-comment-box">
+                          <!-- 작성자 정보  -->
+                          <a
+                            th:href="@{/{memberNo}/minihome(memberNo=${comment.actualAuthorNo})}"
+                            ><div class="comment-author">
+                              <img
+                                th:src="${comment.fromMemberImg == null ? '/images/default/user.png' : comment.fromMemberImg}"
+                                alt="프로필"
+                                class="author-profile-img"
+                              />
+                              <span
+                                class="author-name"
+                                th:text="${comment.memberName != null ? comment.memberName : comment.fromNickname}"
+                                >작성자명</span
+                              >
+                            </div>
+                          </a>
+                          <!-- 일촌평 내용 - DTO 필드명 사용 -->
+                          <span class="comment" th:text="${comment.fromComment}"
+                            >일촌평 내용</span
+                          >
+
+                          <!-- 삭제 버튼 -->
+                          <div
+                            th:if="${loginMember != null and (loginMember.memberNo == comment.actualAuthorNo or loginMember.memberNo == memberNo)}"
+                            class="comment-actions"
+                          >
+                            <button
+                              type="button"
+                              class="btn-delete-comment"
+                              th:onclick="|deleteComment(${comment.actualAuthorNo})|"
+                              title="삭제"
+                            >
+                              <i class="fas fa-trash"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right sidebar -->
+            <div th:replace="~{common/navsidebar}"></div>
+          </div>
+
+          <!-- Footer -->
+          <div th:replace="~{common/footer}"></div>
+        </div>
+
+        <!-- 일촌평 작성 모달 -->
+        <div id="commentModal" class="modal" style="display: none">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>일촌평 작성</h3>
+              <span class="close" onclick="closeCommentModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+              <textarea
+                id="commentTextarea"
+                placeholder="일촌평을 작성해주세요 (최대 30자)"
+                maxlength="30"
+                rows="3"
+              ></textarea>
+              <div class="char-count"><span id="charCount">0</span>/30</div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn-cancel"
+                onclick="closeCommentModal()"
+              >
+                취소
+              </button>
+              <button
+                type="button"
+                class="btn-submit"
+                onclick="submitComment()"
+              >
+                작성
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script th:inline="javascript">
+      const memberNo = /*[[${memberNo}]]*/ 0;
+    </script>
+
+    <script src="/js/miniHome/miniHome.js"></script>
+
+    <script src="/js/miniHome/leftSidebar.js"></script>
+  </body>
+</html>

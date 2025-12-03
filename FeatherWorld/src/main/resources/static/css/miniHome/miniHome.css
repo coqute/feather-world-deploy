@@ -1,0 +1,475 @@
+/* ===== MiniHome 페이지 전용 CSS ===== */
+
+/* MiniHome 페이지의 컨테이너 조정 - 더 구체적인 선택자로 우선순위 확보 */
+body.minihome-page .container {
+  max-width: 1200px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  border: none;
+}
+
+/* MiniHome 페이지의 콘텐츠 컨테이너 */
+body.minihome-page .content-container {
+  align-items: stretch;
+  display: flex;
+  min-height: 600px;
+}
+
+/* MiniHome 페이지의 좌측 사이드바 */
+body.minihome-page .left-sidebar {
+  border-right: 1px solid #e0e0e0;
+  min-width: 250px;
+  max-width: 250px;
+  flex: 0 0 250px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* MiniHome 페이지의 메인 콘텐츠 */
+body.minihome-page .main-content {
+  flex: 1;
+  min-height: 600px;
+  padding: 20px;
+  height: 100%;
+}
+
+/* ===== MiniHome 메인 콘텐츠 영역 스타일 ===== */
+
+/* 보드 컨테이너 */
+.boardContainer {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* 보드 요약 링크 */
+.boardSummary {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.summary-links span {
+  margin: 0 12px;
+  color: #666;
+  text-decoration: none;
+  padding: 10px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* Recent Board 헤더 */
+.recent-board-header {
+  background: linear-gradient(135deg, #9f2120, #c62828);
+  color: white;
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+  font-weight: 600;
+  margin: 25px 0;
+  font-size: 16px;
+  box-shadow: 0 4px 15px rgba(159, 33, 32, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 최근 게시글 영역 */
+.small-image-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0;
+  min-height: 120px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 2px dashed #e0e0e0;
+  padding: 20px;
+}
+
+/* 게시글이 있을 때 */
+.recent-posts {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.post-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+.post-box a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #e0e0e0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.thumbnail:hover {
+  transform: scale(1.08);
+  border-color: #9f2120;
+  box-shadow: 0 4px 15px rgba(159, 33, 32, 0.3);
+}
+
+.post-title {
+  font-size: 12px;
+  margin-top: 8px;
+  text-align: center;
+  color: #666;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* 게시글 없음 */
+.no-recent-posts {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  font-size: 14px;
+  width: 100%;
+}
+
+.no-recent-posts p {
+  margin: 0;
+  color: #999;
+}
+
+/* 댓글 헤더 */
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.comment-header .title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* 댓글 없음 */
+.miniHome-no-comments {
+  text-align: center;
+  padding: 40px 30px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  color: #999;
+  font-style: italic;
+  font-size: 14px;
+  border: 2px dashed #e0e0e0;
+}
+
+.miniHome-no-comments p {
+  margin: 0;
+  color: #999;
+}
+
+/* 일촌평 관련 스타일 */
+.ilchon-comment-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ilchon-comment-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ilchon-comment-list li {
+  margin-bottom: 15px;
+}
+
+.ilchon-comment-box {
+  padding: 14px;
+  background: white;
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.ilchon-comment-box:hover {
+  border-color: #9f2120;
+  box-shadow: 0 4px 15px rgba(159, 33, 32, 0.1);
+}
+
+.ilchon-comment-box .comment {
+  color: #555;
+  line-height: 1.5;
+  display: block;
+}
+
+/* 작성자 정보 스타일 */
+.comment-author {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.author-profile-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 2px solid #e0e0e0;
+  object-fit: cover;
+}
+
+.author-name {
+  font-weight: 600;
+  color: #000000;
+  font-size: 14px;
+}
+
+/* 일촌평 작성 버튼 */
+.comment-write-btn {
+  display: flex;
+  align-items: center;
+}
+
+.btn-write-comment {
+  background: linear-gradient(135deg, #9f2120, #c62828);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-write-comment:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(159, 33, 32, 0.3);
+}
+
+/* 댓글 삭제 버튼 */
+.comment-actions {
+  margin-top: 8px;
+  text-align: right;
+}
+
+.btn-delete-comment {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-delete-comment:hover {
+  background-color: #f5f5f5;
+  color: #d32f2f;
+  box-shadow: 0 4px 15px rgba(159, 33, 32, 0.3);
+}
+
+/* 일촌평 목록 영역 스타일 */
+.ilchon-comments-section {
+  margin-top: 20px;
+  max-height: 140px;
+  overflow-y: auto;
+  padding-right: 5px;
+  border-radius: 8px;
+}
+
+/* 모달 스타일 */
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #333;
+}
+
+.close {
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+}
+
+.close:hover {
+  color: #333;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-body textarea {
+  width: 100%;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  resize: none;
+  outline: none;
+}
+
+.modal-body textarea:focus {
+  border-color: #9f2120;
+}
+
+.char-count {
+  text-align: right;
+  font-size: 12px;
+  color: #999;
+  margin-top: 5px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.btn-cancel,
+.btn-submit {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-cancel {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.btn-submit {
+  background-color: #9f2120;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #e0e0e0;
+}
+
+.btn-submit:hover {
+  background-color: #8a1c1b;
+}
+
+/* ===== 반응형 MiniHome ===== */
+@media (max-width: 1024px) {
+  body.minihome-page {
+    padding: 10px 0 !important;
+  }
+
+  body.minihome-page .container {
+    max-width: 95% !important;
+    margin: 10px auto !important;
+  }
+
+  body.minihome-page .content-container {
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  body.minihome-page .left-sidebar {
+    max-width: none !important;
+    border-right: none;
+  }
+  body.minihome-page .right-sidebar {
+    border-left: none;
+  }
+
+  .summary-links span {
+    margin: 5px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .thumbnail {
+    width: 70px;
+    height: 70px;
+  }
+
+  .post-title {
+    max-width: 70px;
+    font-size: 11px;
+  }
+
+  .small-image-row {
+    min-height: 100px;
+    padding: 15px;
+  }
+}
+
+/* 일촌평 목록 영역 스타일 */
+.ilchon-comments-section {
+  margin-top: 20px;
+  max-height: 140px; /* 최대 높이 설정 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  padding-right: 5px; /* 스크롤바 여백 */
+  border-radius: 8px;
+  scrollbar-width: none;
+}

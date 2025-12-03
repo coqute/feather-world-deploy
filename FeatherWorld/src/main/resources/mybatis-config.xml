@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+
+	<settings>
+		
+		<!-- Java null을 DB NULL로 인식 -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+		
+		<!-- Java 필드명과 DB 컬럼명 연결 -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		
+	</settings>
+	
+</configuration>

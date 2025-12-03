@@ -1,0 +1,176 @@
+<div th:fragment="leftsidebar" id="leftProfileContainer">
+  <!-- Today/Total 통계 -->
+  <div id="profileStatsSection">
+    <span
+      >Today <span id="todayCount" th:text="${todayCount ?: 0}">0</span> / Total
+      <span id="totalCount" th:text="${totalCount ?: 0}">0</span></span
+    >
+  </div>
+
+  <!-- 프로필 이미지 영역 -->
+  <div id="profileImageContainer">
+    <div id="profileImageWrapper">
+      <img
+        id="profileMainImage"
+        th:src="${member != null and member.memberImg != null ? member.memberImg : '/images/default/user.png'}"
+        alt="Profile Image"
+      />
+
+      <!-- 미니홈피 주인만 보이는 프로필 수정/삭제 버튼 -->
+      <th:block th:if="${session.loginMember != null and member != null and session.loginMember.memberNo == member.memberNo}">
+        <!-- 프로필 수정 버튼 -->
+        <div id="profileImageEditIcon" onclick="editProfileImage()">
+          <i class="fas fa-edit"></i> edit
+        </div>
+
+        <!-- 프로필 삭제 버튼 -->
+        <div id="profileImageDeleteIcon" onclick="deleteProfileImage()">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+      </th:block>
+    </div>
+  </div>
+
+  <!-- 사용자 정보 영역 -->
+  <div id="profileInfoSection">
+    <!-- 사용자명 -->
+    <div id="profileUsernameSection">
+      <span
+        id="profileUsernameDisplay"
+        th:text="${member != null ? member.memberName : '사용자명'}"
+        >사용자명</span
+      >
+      <input
+        type="text"
+        id="profileUsernameInput"
+        th:value="${member != null ? member.memberName : ''}"
+        style="display: none"
+      />
+    </div>
+
+    <!-- 이메일 -->
+    <div id="profileEmailSection">
+      <span
+        id="profileEmailDisplay"
+        th:text="${member != null ? member.memberEmail : 'Email@sample.com'}"
+        >Email@sample.com</span
+      >
+    </div>
+
+    <!-- 팔로워/팔로잉 수 -->
+    <div id="profileFollowStats">
+      <div id="profileFollowerCount">
+        <span id="profileFollowerNumber" th:text="${followerCount ?: 0}"
+          >0</span
+        >
+        <span id="profileFollowerLabel">Follower</span>
+        <!-- 미수락 팔로워 신청이 있을 때만 표시 (본인만) -->
+        <i
+          class="fas fa-bell notification-bell"
+          th:if="${session.loginMember != null and member != null and session.loginMember.memberNo == member.memberNo and hasPendingFollowers}"
+          title="새로운 일촌 신청이 있습니다"
+          onclick="showPendingFollowers()"
+        ></i>
+      </div>
+      <div id="profileFollowingCount">
+        <span id="profileFollowingNumber" th:text="${followingCount ?: 0}"
+          >0</span
+        >
+        <span id="profileFollowingLabel">Following</span>
+      </div>
+    </div>
+
+    <!-- 버튼 영역 -->
+    <div id="profileActionButtons">
+      <!-- 본인 프로필인 경우 - 일반 모드 -->
+      <div
+        id="profileOwnerButtons"
+        th:if="${session.loginMember != null and member != null and session.loginMember.memberNo == member.memberNo}"
+      >
+        <button id="profileEditBtn" onclick="editProfile()">
+          Edit Profile
+        </button>
+        <button id="profileLogoutBtn" onclick="logout()">Logout</button>
+      </div>
+
+      <!-- 본인 프로필인 경우 - 편집 모드 버튼들 -->
+      <div
+        id="profileEditModeButtons"
+        th:if="${session.loginMember != null and member != null and session.loginMember.memberNo == member.memberNo}"
+        style="display: none"
+      >
+        <button
+          id="profileSaveBtn"
+          onclick="editProfile()"
+          style="background-color: #28a745"
+        >
+          Save
+        </button>
+        <button
+          id="profileCancelBtn"
+          onclick="cancelEdit()"
+          style="background-color: #6c757d"
+        >
+          Cancel
+        </button>
+      </div>
+
+      <!-- 타인 프로필인 경우 -->
+      <div
+        id="profileOtherButtons"
+        th:if="${session.loginMember != null and member != null and session.loginMember.memberNo != member.memberNo}"
+      >
+        <!-- 이미 일촌인 경우 -->
+        <div th:if="${isIlchon != null and isIlchon}" class="ilchon-status">
+          <div class="ilchon-badge">
+            <i class="fas fa-heart"></i>
+            <span>일촌</span>
+          </div>
+        </div>
+
+        <!-- 내가 일촌 신청한 상태 (신청 대기중) -->
+        <div
+          th:if="${isPendingRequest != null and isPendingRequest}"
+          class="pending-status"
+        >
+          <div class="pending-badge">
+            <i class="fas fa-clock"></i>
+            <span>일촌신청중...</span>
+          </div>
+        </div>
+
+        <!-- 아무 관계가 없는 경우에만 팔로우 버튼 -->
+        <button
+          id="profileFollowBtn"
+          th:if="${(isIlchon == null or !isIlchon) and (isPendingRequest == null or !isPendingRequest)}"
+          th:onclick="'follow(' + ${member.memberNo} + ')'"
+          class="follow-btn"
+        >
+          <i class="fas fa-user-plus"></i> Follow
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bio 영역 -->
+  <div id="profileBioContainer">
+    <div id="profileBioTitle">Bio</div>
+    <div id="profileBioContent">
+      <span
+        id="profileBioDisplay"
+        th:text="${member != null and member.memberIntro != null ? member.memberIntro : '자기소개가없습니다'}"
+        >Sola Gratia</span
+      >
+      <textarea
+        id="profileBioInput"
+        th:text="${member != null and member.memberIntro != null ? member.memberIntro : '자기 소개가없습니다.'}"
+        style="display: none"
+      ></textarea>
+    </div>
+  </div>
+
+  <!-- Surfing 버튼 그냥 모든사람이다 할수있음 -->
+  <div id="profileSurfingSection">
+    <button id="profileSurfingBtn" onclick="goSurfing()">Surfing</button>
+  </div>
+</div>

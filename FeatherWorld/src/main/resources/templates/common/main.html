@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="#{app.name}">Feathers McGrew Semi Project</title>
+    <link rel="stylesheet" href="/css/mainHome/home.css" />
+
+    <th:block th:replace="~{common/common}"></th:block>
+  </head>
+  <body>
+    <!-- Header Fragment -->
+    <div th:replace="~{common/header}"></div>
+
+    <main class="main-content">
+      <div class="container">
+        <!-- Search Bar -->
+        <div class="main-sections">
+          <section class="left-panel">
+            <div class="search-bar">
+              <input
+                type="text"
+                placeholder="Member Search"
+                class="member-search"
+              />
+              <button class="search-btn">
+                <img
+                  src="/images/icons/search.png"
+                  alt="Search"
+                  class="search-icon"
+                />
+              </button>
+              <span id="closeBtn">&times;</span>
+              <ul id="searchResults" class="search-results"></ul>
+            </div>
+
+            <!-- Today's Best Section -->
+            <section class="todays-best">
+              <h2 class="section-title">TODAY'S BEST</h2>
+              <div class="members-list">
+                <!-- 첫번째줄 투데이베스트 (상위 3명) -->
+                <div class="member-row">
+                  <th:block
+                    th:each="member, iterStat : ${todayBestMembers}"
+                    th:if="${iterStat.index < 3}"
+                  >
+                    <div
+                      class="member-card"
+                      th:classappend="${iterStat.index == 0} ? 'highlight' : ''"
+                    >
+                      <a
+                        th:href="@{/{memberNo}/minihome(memberNo=${member.memberNo})}"
+                      >
+                        <div class="member-avatar">
+                          <img
+                            th:src="${member.memberImg} ?: #{user.default.image}"
+                            alt="Member Avatar"
+                          />
+                        </div>
+                      </a>
+                      <p
+                        class="member-name"
+                        th:text="${iterStat.index == 0 ? '🔥 ' + member.memberName : member.memberName}"
+                      ></p>
+                    </div>
+                  </th:block>
+                </div>
+
+                <!-- 두번째줄 투데이베스트 (4-6위) -->
+                <div class="member-row">
+                  <th:block
+                    th:each="member, iterStat : ${todayBestMembers}"
+                    th:if="${iterStat.index >= 3 && iterStat.index < 6}"
+                  >
+                    <div class="member-card">
+                      <a
+                        th:href="@{/{memberNo}/minihome(memberNo=${member.memberNo})}"
+                      >
+                        <div class="member-avatar">
+                          <img
+                            th:src="${member.memberImg} ?: #{user.default.image}"
+                            alt="Member Avatar"
+                          />
+                        </div>
+                      </a>
+                      <p class="member-name" th:text="${member.memberName}"></p>
+                    </div>
+                  </th:block>
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <!-- 로그인세션 -->
+          <div class="right-panel">
+            <section
+              class="login-section"
+              th:if="${session.loginMember == null}"
+            >
+              <h2 class="section-title">SIGN IN</h2>
+
+              <!-- 로그인이 안되어있을때 -->
+              <form class="login-form" action="/member/login" method="post">
+                <div class="form-group">
+                  <label for="username">Email :</label>
+                  <input
+                    type="text"
+                    id="username"
+                    name="memberEmail"
+                    placeholder="Email을입력해주세요"
+                    class="form-input"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="password">PASSWORD :</label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="memberPw"
+                    placeholder="Password를 입력해주세요."
+                    class="form-input"
+                  />
+                </div>
+
+                <button type="submit" class="login-btn">로그인</button>
+
+                <div class="social-login">
+                  <button type="button" class="kakao-btn">
+                    <img
+                      src="/images/icons/kakao.png"
+                      alt="Kakao"
+                      class="kakao-icon"
+                    />
+                    카카오 로그인
+                  </button>
+                </div>
+
+                <div class="login-options">
+                  <a href="/member/findId" class="option-link"
+                    >아이디/비밀번호 찾기</a
+                  >
+                  <a href="/member/signup" class="option-link">회원가입</a>
+                </div>
+              </form>
+            </section>
+
+            <!-- 로그인이 되었을때 -->
+            <section
+              class="profile-section"
+              th:if="${session.loginMember != null}"
+            >
+              <div class="profile-container">
+                <div class="profile-avatar">
+                  <img
+                    th:src="${session.loginMember != null && session.loginMember?.memberImg != null ? session.loginMember?.memberImg : '/images/default/user.png'}"
+                    alt="Profile Image"
+                    title="회원정보수정"
+                  />
+                </div>
+                <h2
+                  class="profile-name"
+                  th:text="${session.loginMember?.memberName}"
+                >
+                  안준성
+                </h2>
+                <p
+                  class="profile-email"
+                  th:text="${session.loginMember.memberEmail}"
+                >
+                  Me@google.com
+                </p>
+                <div class="profile-actions">
+                  <a
+                    th:href="@{/{member}/minihome(member=${session.loginMember?.memberNo})}"
+                    class="home-btn"
+                  >
+                    <i
+                      class="fa-solid fa-house"
+                      alt="Home"
+                      style="margin-right: 10px"
+                    ></i>
+                    My Home
+                  </a>
+                  <button type="button" class="logout-btn">Logout</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Fragment -->
+    <div th:replace="~{common/footer}"></div>
+    <script th:inline="javascript">
+      // 서버에서 memberNo를 JavaScript 변수로 전달
+      const memberNo = /*[[${session.loginMember?.memberNo}]]*/ null;
+    </script>
+    <script src="/js/home/mainhome.js"></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+  </body>
+</html>

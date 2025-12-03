@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title th:text="#{app.name}">FeatherWorld - Board</title>
+
+  <th:block th:replace="~{common/common}"></th:block>
+  <link rel="stylesheet" href="/css/board/boardType.css">
+  <link rel="stylesheet" href="/css/board/boardWrite.css" />
+</head>
+<body>
+	<div class="center-page">
+	     <div class="center-content">
+<div class="container">
+  <!-- 헤더 Include -->
+  <th:block th:replace="~{common/header}"></th:block>
+
+  <div class="content-container">
+    <!-- 좌측 게시판 리스트 Include -->
+    <th:block th:replace="~{board/boardTypeSidebar}"></th:block>
+
+    <!-- 중앙 게시글 작성 -->
+    <div class="main-content">
+      <div class="back-button">
+        <span class="fa-solid fa-left-long"></span>
+      </div>
+
+      <div class="board-write">
+        <form class="board-form">
+          <div class="input-group mb-4">
+            <input type="text" class="form-control" name="boardTitle"
+                   placeholder="Board Title" aria-label="Board Title"/>
+          </div>
+
+          <div class="content-area">
+                <textarea class="form-control" name="boardContent"
+                          placeholder="Board Content" rows="20" cols="70"></textarea>
+          </div>
+
+          <!-- 이미지 업로드 영역 -->
+          <div class="image-upload-container">
+            <div class="image-upload-grid">
+              <!-- 5개 슬롯 -->
+              <div class="image-slot">
+                <span class="placeholder">✕</span>
+              </div>
+              <div class="image-slot">
+                <span class="placeholder">✕</span>
+              </div>
+              <div class="image-slot">
+                <span class="placeholder">✕</span>
+              </div>
+              <div class="image-slot">
+                <span class="placeholder">✕</span>
+              </div>
+              <div class="image-slot">
+                <span class="placeholder">✕</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button type="button" class="btn-cancel">Cancel</button>
+            <button type="button" class="btn-confirm">✓ Confirm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 우측 네비게이션 바 Include -->
+    <th:block th:replace="~{common/navSidebar}"></th:block>
+  </div>
+
+  <!-- 푸터 Include -->
+  <th:block th:replace="~{common/footer}"></th:block>
+</div>
+	     </div>
+	</div>
+
+<!-- 숨겨진 파일 입력 -->
+<input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+
+<!-- JS 에서 쓰기 버튼 클릭 이벤트에 활용할 현재 게시판 종류 번호 선언 -->
+<script th:inline="javascript">
+  const currentBoardCode = /*[[${boardCode}]]*/ 0;
+  const loginMemberNo = /*[[${session.loginMember.memberNo}]]*/ 0;
+  const memberNo = /*[[${memberNo}]]*/ 0;
+</script>
+<script src="/js/board/boardWrite.js"></script>
+</body>

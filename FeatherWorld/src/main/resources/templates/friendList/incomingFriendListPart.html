@@ -1,0 +1,324 @@
+<div id="my-incoming-friend-list" style="padding-bottom: 20px">
+  <button id="to-friendList-btn" class="button-default right-align">
+    현재 일촌 리스트로 돌아가기
+  </button>
+
+  <ul class="title title-font">
+    <!-- 250521 나중에 미니홈피 profile 구현 후 서버에서 member정보를 model 등에 구현했을떄 다시 수정할것.-->
+    MY 보낸/받은 일촌신청 목록
+  </ul>
+  <div class="title">
+    <ul
+      id="incoming-title"
+      class="semi-title-font"
+      th:text="${session.loginMember?.memberNo == memberNo?'내게 들어온 ': memberNo + '님에게 들어온 '} + '일촌신청 목록이에요!'"
+    >
+      <!-- 250521 나중에 미니홈피 profile 구현 후 서버에서 member정보를 model 등에 구현했을떄 다시 수정할것.-->
+      나에게 들어온 일촌신청 목록이에요!
+    </ul>
+  </div>
+  <ul
+    id="friend-list"
+    class="border-inner"
+    style="padding: 20px 0px 20px 0px; margin: 20px 0px 20px 0px"
+  >
+    <th:block th:each="ilchon : ${ilchons}">
+      <li
+        class="friend-item fade-slide"
+        th:attr="data-member-no=${ilchon.toMemberNo == memberNo?ilchon.fromMemberNo:ilchon.toMemberNo}"
+      >
+        <!-- session이랑 비교하도록 되어있음. -->
+        <div class="left-align">
+          <img
+            th:if="${ilchon.memberImg}"
+            th:src="@{${ilchon.memberImg}}"
+            width="20"
+            class="friend-profile"
+          />
+          <img
+            th:unless="${ilchon.memberImg}"
+            th:src="@{/images/default/user.png}"
+            width="20"
+            class="friend-profile"
+          />
+          <span
+            class="font-bold color-gray friend-name"
+            th:text="${ilchon.memberName}"
+            >별명</span
+          >
+        </div>
+
+        <div class="right-align">
+          <span
+            name="fromNickname"
+            class="color-gray"
+            th:text="${ilchon.fromNickname}"
+            >일촌명</span
+          >
+
+          <span
+            name="ilchon-button"
+            class="rounded-span right-align font-bold hidden"
+            >일촌</span
+          >
+          <i class="fas fa-check-circle check-icon hidden"></i
+          ><!--DB 닉네임 업데이트 성공시 나타나는 V표식-->
+          <i class="fas fa-times-circle x-icon hidden"></i
+          ><!--DB 닉네임 업데이트 실패시 나타나는 V표식-->
+          <input
+            name="fromNickname-input"
+            rows="1"
+            placeholder="이분을 뭐라고 부르시겠어요?"
+          />
+          <button
+            name="accept-button"
+            class="rounded-span right-align color-red disabled-button"
+            style="border-radius: 30px"
+            width="50px"
+          >
+            Accept
+          </button>
+          <textarea
+            class="hidden"
+            rows="1"
+            placeholder="등록할 일촌명을 입력해주세요!"
+          ></textarea>
+
+          <button
+            name="deny-button"
+            class="rounded-span right-align color-red"
+            style="border-radius: 30px"
+            width="50px"
+          >
+            Deny
+          </button>
+          <span
+            name="unfollow-button"
+            class="rounded-unfollow-span right-align color-red hidden"
+            width="30px"
+            >Unfollow</span
+          >
+        </div>
+      </li>
+    </th:block>
+    <!-- pagination -->
+    <div style="margin-top: 40px">
+      <ul
+        id="incoming-pagination"
+        class="pagination"
+        th:unless="${#lists.isEmpty(ilchons)}"
+      >
+        <!-- << -->
+        <li>
+          <span
+            th:href="@{|${memberNo}/friendList/incoming?cp=1&cpFrom=${paginationFrom.currentPage}|}"
+            th:onClick="|updateFriendListIncoming(1,  ${paginationFrom.currentPage})|"
+            >&lt;&lt;</span
+          >
+        </li>
+
+        <!-- < -->
+        <li>
+          <span
+            th:href="@{|/${memberNo}/friendList/incoming?cp=${pagination.prevPage}&cpFrom=${paginationFrom.currentPage}|}"
+            th:onClick="|updateFriendListIncoming(${pagination.prevPage},  ${paginationFrom.currentPage})|"
+            >&lt;</span
+          >
+        </li>
+
+        <!-- Page numbers -->
+        <th:block
+          th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
+        >
+          <li th:if="${i == pagination.currentPage}">
+            <span
+              class="current"
+              th:text="${i}"
+              th:onClick="|updateFriendListIncoming(${i},  ${paginationFrom.currentPage})|"
+            ></span>
+          </li>
+          <li th:if="${i != pagination.currentPage}">
+            <span
+              th:href="@{|/{memberNo}/friendList/incomingcp=${i}&cpFrom=${paginationFrom.currentPage}|}"
+              th:text="${i}"
+              th:onClick="|updateFriendListIncoming(${i},  ${paginationFrom.currentPage})|"
+            ></span>
+          </li>
+        </th:block>
+
+        <!-- > -->
+        <li>
+          <span
+            th:href="@{|/${memberNo}/friendList/incoming?cp=${pagination.nextPage}&cpFrom=${paginationFrom.currentPage}|}"
+            th:onClick="|updateFriendListIncoming(${pagination.nextPage},  ${paginationFrom.currentPage})|"
+            >&gt;</span
+          >
+        </li>
+
+        <!-- >> -->
+        <li>
+          <span
+            th:href="@{|/${memberNo}/friendList/incoming?cp=${pagination.maxPage}&cpFrom=${paginationFrom.currentPage}|}"
+            th:onClick="|updateFriendListIncoming(${pagination.maxPage},  ${paginationFrom.currentPage})|"
+            >&gt;&gt;</span
+          >
+        </li>
+      </ul>
+    </div>
+    <!--end of Pagination-->
+    <div style="justify-items: center" th:if="${#lists.isEmpty(ilchons)}">
+      <p>일촌신청이 없습니다.</p>
+    </div>
+  </ul>
+
+  <!----------------------------------- incoming - sended의 경계 ------------------------------------------->
+  <div class="title">
+    <ul id="sended-title" class="semi-title-font">
+      <!-- 250521 나중에 미니홈피 profile 구현 후 서버에서 member정보를 model 등에 구현했을떄 다시 수정할것.-->
+      내가 보낸 일촌신청 목록이에요!
+    </ul>
+  </div>
+  <ul
+    id="friend-sended-list"
+    class="border-inner"
+    style="padding: 20px 0px 20px 0px"
+  >
+    <th:block th:each="ilchon : ${ilchonsFrom}">
+      <li
+        class="friend-item-sended fade-slide"
+        th:attr="data-member-no=${ilchon.toMemberNo == memberNo?ilchon.fromMemberNo:ilchon.toMemberNo}"
+      >
+        <!-- friend-item 절떄 지우면 안됨!!!!-->
+        <!-- session이랑 비교하도록 되어있음. -->
+        <div class="left-align">
+          <img
+            name="sended-friend-img"
+            class="toFriendImg"
+            th:if="${ilchon.memberImg}"
+            th:src="@{${ilchon.memberImg}}"
+            width="20"
+          />
+          <img
+            name="sended-friend-img"
+            class="toFriendImg"
+            th:unless="${ilchon.memberImg}"
+            th:src="@{/images/default/user.png}"
+            width="20"
+          />
+
+          <span
+            name="sended-friend-name"
+            id="toFriendName"
+            class="font-bold color-gray"
+            th:text="${ilchon.memberName}"
+            >별명</span
+          >
+        </div>
+
+        <div class="right-align">
+          <span
+            name="fromNickname"
+            class="color-gray"
+            th:text="${ilchon.fromNickname}"
+            >일촌명</span
+          >
+
+          <span
+            name="ilchon-button"
+            style="color: grey"
+            class="rounded-span right-align font-bold"
+            >일촌수락 대기중...</span
+          >
+          <span
+            name="unfollow-button"
+            class="rounded-unfollow-span right-align color-red"
+            width="30px"
+            >Cancel</span
+          >
+          <i class="fas fa-check-circle check-icon hidden"></i
+          ><!--DB 닉네임 업데이트 성공시 나타나는 V표식-->
+          <i class="fas fa-times-circle x-icon hidden"></i
+          ><!--DB 닉네임 업데이트 실패시 나타나는 V표식-->
+        </div>
+      </li>
+    </th:block>
+    <!-- pagination -->
+    <div style="margin-top: 40px">
+      <ul
+        id="sended-pagination"
+        class="pagination"
+        th:unless="${#lists.isEmpty(ilchonsFrom)}"
+      >
+        <!-- << -->
+        <li>
+          <span
+            th:href="@{|/{memberNo}/friendList/incoming?cpFrom=1|}"
+            th:onClick="|updateFriendListIncoming_refactored(${pagination.currentPage},  1)|"
+            >&lt;&lt;</span
+          >
+        </li>
+
+        <!-- < -->
+        <li>
+          <span
+            th:href="@{|/${memberNo}/friendList/incoming?cp=${pagination.currentPage}&cpFrom=${pagination.prevPage} |}"
+            th:onClick="|updateFriendListIncoming_refactored(${pagination.currentPage},  ${pagination.prevPage})|"
+            >&lt;</span
+          >
+        </li>
+
+        <!-- Page numbers -->
+        <th:block
+          th:each="i : ${#numbers.sequence(paginationFrom.startPage, paginationFrom.endPage)}"
+        >
+          <li th:if="${i == paginationFrom.currentPage}">
+            <span class="current" th:text="${i}"></span>
+          </li>
+          <li id="target" th:if="${i != paginationFrom.currentPage}">
+            <span
+              th:href="@{|/${memberNo}/friendList/incoming?cpFrom=${i}|}"
+              th:text="${i}"
+              th:onClick="|updateFriendListIncoming_refactored(${pagination.currentPage},  ${i})|"
+            ></span>
+          </li>
+        </th:block>
+
+        <!-- > -->
+        <li>
+          <span
+            th:href="@{|/${memberNo}/friendList/incoming?cp=${pagination.currentPage}&cpFrom=${paginationFrom.nextPage}|}"
+            th:onClick="|updateFriendListIncoming_refactored(${pagination.currentPage},  ${paginationFrom.nextPage})|"
+            >&gt;</span
+          >
+        </li>
+
+        <!-- >> -->
+        <li>
+          <span
+            th:href="@{|/${memberNo}/friendList/incoming?cp=${pagination.currentPage}&cpFrom=${paginationFrom.maxPage}|}"
+            th:onClick="|updateFriendListIncoming_refactored(${pagination.currentPage},  ${paginationFrom.maxPage})|"
+            >&gt;&gt;</span
+          >
+        </li>
+      </ul>
+    </div>
+
+    <!--end of Pagination-->
+    <div style="justify-items: center" th:if="${#lists.isEmpty(ilchonsFrom)}">
+      <p>일촌신청이 없습니다.</p>
+    </div>
+  </ul>
+  <input
+    type="hidden"
+    id="curr-pagination"
+    th:value="${pagination.currentPage}"
+  />
+  <input
+    type="hidden"
+    id="curr-pagination-from"
+    th:value="${paginationFrom.currentPage}"
+  />
+  <script src="/js/friendList/incomingFriendListPart.js"></script>
+  <!--for pagination-->
+  <script th:inline="javascript"></script>
+</div>

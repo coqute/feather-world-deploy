@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FeatherWorld 회원정보 수정</title>
+    <link rel="stylesheet" href="/css/mainHome/updateMember.css" />
+    <th:block th:replace="~{common/common}"></th:block>
+  </head>
+  <body>
+    <div class="center-page">
+      <div class="center-content">
+        <div class="container">
+          <div th:replace="~{common/header}"></div>
+
+          <div class="content-container">
+            <!-- 기존 스타일 제거하고 프로필 카드만 포함 -->
+            <div class="left-sidebar">
+              <div th:replace="~{common/leftsidebar}"></div>
+            </div>
+
+            <div class="main-content">
+              <!-- 비밀번호 인증 화면 (처음에 보임) -->
+              <div id="authSection" class="auth-container">
+                <div class="auth-icon">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+
+                <h1 class="page-title">비밀번호 인증</h1>
+                <p class="page-subtitle">
+                  회원정보 수정을 위해<br />현재 비밀번호를 입력해주세요.
+                </p>
+
+                <div class="form-group">
+                  <label class="form-label" for="password">PASSWORD :</label>
+                  <input
+                    type="password"
+                    class="form-input"
+                    id="password"
+                    name="password"
+                    placeholder="현재 비밀번호를 입력해주세요"
+                  />
+                </div>
+
+                <div class="form-buttons">
+                  <a href="/" class="btn btn-cancel">
+                    <i class="fas fa-times"></i> 취소
+                  </a>
+                  <button type="button" class="btn btn-verify" id="verifyBtn">
+                    <i class="fas fa-check"></i> 인증
+                  </button>
+                </div>
+              </div>
+
+              <!-- 회원정보 수정 화면 (처음엔 완전히 숨김) -->
+              <div id="editSection" class="edit-form" style="display: none">
+                <h1 class="page-title">회원정보 수정</h1>
+                <p class="page-subtitle">
+                  수정할 회원정보를 입력해주세요.(선택사항)
+                </p>
+
+                <form
+                  th:action="@{/{memberNo}/updateMember(memberNo=${memberNo})}"
+                  method="post"
+                  id="updateForm"
+                >
+                  <div class="form-group">
+                    <label class="form-label" for="memberName">NAME :</label>
+                    <input
+                      type="text"
+                      class="form-input"
+                      id="memberName"
+                      name="memberName"
+                      placeholder="이름을 입력해 주세요"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="memberTel">PHONE :</label>
+                    <input
+                      type="tel"
+                      class="form-input"
+                      id="memberTel"
+                      name="memberTel"
+                      placeholder="전화번호를 입력해 주세요 (하이픈 없이)"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="memberPw"
+                      >NEW PASSWORD :</label
+                    >
+                    <input
+                      type="password"
+                      class="form-input"
+                      id="memberPw"
+                      name="memberPw"
+                      placeholder="새 비밀번호를 입력해 주세요 (선택사항)"
+                    />
+                  </div>
+
+                  <div class="form-buttons">
+                    <button
+                      type="button"
+                      class="btn btn-return"
+                      onclick="showAuthSection()"
+                    >
+                      ↩ 돌아가기
+                    </button>
+                    <button type="submit" class="btn btn-finish">
+                      ✓ 수정완료
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <th:block th:replace="~{common/navSidebar}"></th:block>
+          </div>
+
+          <div th:replace="~{common/footer}"></div>
+        </div>
+      </div>
+    </div>
+    <script th:inline="javascript">
+      const memberNo = /*[[${memberNo}]]*/ 0;
+    </script>
+    <script src="/js/member/updateMember.js"></script>
+    <script src="/js/miniHome/miniHome.js"></script>
+    <script src="/js/miniHome/leftSidebar.js"></script>
+  </body>
+</html>

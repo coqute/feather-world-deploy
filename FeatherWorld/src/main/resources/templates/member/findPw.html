@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FeatherWorld - 비밀번호 찾기</title>
+    <th:block th:replace="~{common/common}"></th:block>
+    <link rel="stylesheet" href="/css/mainHome/findPw.css" />
+  </head>
+  <body>
+    <!-- 헤더 포함 -->
+
+    <header>
+      <div th:replace="~{common/header}"></div>
+    </header>
+
+    <main class="main-content">
+        <div class="page-container">
+          <!-- 좌측 메뉴 -->
+          <div class="left-menu">
+            <a href="/member/findId" class="btn secondary">Find Email</a>
+            <a href="/member/findPw" class="btn">Find Password</a>
+          </div>
+
+          <!-- 메인 컨텐츠 박스 -->
+          <div class="main-box">
+            <div id="emailAuthForm">
+              <h1 class="title">비밀번호 찾기</h1>
+
+              <div class="form-group">
+                <label class="required">EMAIL :</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="memberEmail"
+                  placeholder="ex) abc123@email.com"
+                />
+                <button type="button" id="sendAuthKeyBtn" class="action-btn">
+                  Send Authkey
+                </button>
+                <span id="emailError" class="error-message"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="required">AUTHKEY :</label>
+                <input
+                  type="text"
+                  id="authKey"
+                  name="authKey"
+                  placeholder="인증번호를 입력해 주세요."
+                  disabled
+                />
+                <button
+                  type="button"
+                  id="verifyAuthKeyBtn"
+                  class="action-btn"
+                  disabled
+                >
+                  Authkey Confirm
+                </button>
+                <span id="authKeyError" class="error-message"></span>
+              </div>
+
+              <button type="button" class="confirm-btn" id="confirmBtn" disabled>
+                Confirm
+              </button>
+            </div>
+
+            <!-- 비밀번호 재설정 폼 (초기에는 숨겨져 있음) -->
+            <div id="passwordResetForm">
+              <h1 class="title">비밀번호 재설정</h1>
+
+              <div class="form-group">
+                <label class="required">PASSWORD :</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="memberPw"
+                  placeholder="영문, 숫자, !@#$%를 포함한 8자 ~ 12자"
+                />
+                <span id="passwordError" class="error-message"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="required">PASSWORD CHECK :</label>
+                <input
+                  type="password"
+                  id="passwordCheck"
+                  name="passwordCheck"
+                  placeholder="영문, 숫자, !@#$%를 포함한 8자 ~ 12자"
+                />
+                <span id="passwordCheckError" class="error-message"></span>
+                <input type="hidden" id="memberNo" th:value="${memberNo}" />
+              </div>
+
+              <button type="button" class="confirm-btn" id="resetPasswordBtn">
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+    </main>
+
+    <!-- 푸터 포함 -->
+    <footer>
+      <div th:replace="~{common/footer}"></div>
+    </footer>
+
+    <script src="/js/member/findPw.js"></script>
+  </body>
+</html>

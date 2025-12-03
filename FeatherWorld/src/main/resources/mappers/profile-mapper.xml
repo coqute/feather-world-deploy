@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.featherworld.project.profile.model.mapper.ProfileMapper">
+
+	<select id="selectProfile" parameterType="int"
+		resultType="Profile">
+		SELECT * FROM PROFILE WHERE MEMBER_NO = #{memberNo}
+	</select>
+
+	<insert id="insertProfile" parameterType="Profile">
+		INSERT INTO PROFILE (MEMBER_NO, IMG_PATH, IMG_ORIGINAL_NAME, IMG_RENAME,
+		PROFILE_CONTENT)
+		VALUES (#{memberNo}, #{imgPath}, #{imgOriginalName}, #{imgRename},
+		#{profileContent})
+	</insert>
+
+	<update id="updateProfile" parameterType="Profile">
+		UPDATE PROFILE
+		SET IMG_PATH = #{imgPath},
+		IMG_ORIGINAL_NAME = #{imgOriginalName},
+		IMG_RENAME = #{imgRename},
+		PROFILE_CONTENT = #{profileContent}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+
+		<!-- 🔐 비밀번호 확인 -->
+	<select id="selectEncodedPw" resultType="String">
+	  SELECT MEMBER_PW FROM MEMBER
+	  WHERE MEMBER_NO = #{memberNo}
+	</select>
+
+	<!-- ❌ 회원 탈퇴 처리 (soft delete) -->
+	<update id="deleteMember">
+	  UPDATE MEMBER SET MEMBER_DEL_FL = 'Y' WHERE MEMBER_NO = #{memberNo}
+	</update>
+
+
+
+
+	<!-- 또는 soft delete 예시 -->
+	<!-- <update id="deleteMember"> UPDATE MEMBER SET MEMBER_DEL_FL = 'Y' WHERE 
+		MEMBER_NO = #{memberNo} </update> -->
+
+	<!-- 카카오회원 탈퇴 -->
+	<update id="secessionKakaoMember" parameterType="int">
+    UPDATE MEMBER SET 
+      MEMBER_DEL_FL = 'Y',
+      KAKAO_ACCESS_TOKEN = NULL 
+    WHERE MEMBER_NO = #{memberNo}
+</update>
+
+
+</mapper>

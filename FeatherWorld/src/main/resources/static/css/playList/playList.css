@@ -1,0 +1,337 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+.container {
+  width: 1200px;
+}
+
+.container-main {
+  display: flex;
+}
+
+/* 가운데 영역 */
+.middle-sidebar {
+  flex: 1;
+  overflow-y: auto;
+  text-align: center;
+  min-height: 600px;
+  padding: 20px;
+}
+
+/* 프로필 관련 스타일 */
+.profile-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  overflow: hidden;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.profile-handle {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+/* 프로필 통계 */
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-weight: bold;
+  font-size: 16px;
+  color: #912d2d;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #888;
+}
+
+/* 버튼 정렬 */
+.profile-action {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.action-button {
+  flex: 1;
+  padding: 6px 0;
+  font-size: 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+
+.confirm-button,
+.back-button,
+.surfing-button {
+  background-color: #912d2d;
+  color: white;
+}
+
+.Board-button {
+  background-color: rgb(206, 204, 204);
+  color: black;
+  border: 1px solid #ccc;
+  height: 70px;
+  border-radius: 10px;
+  font-weight: bold;
+  width: 100%;
+}
+
+/* 글 작성 및 미디어 */
+.file-input,
+#bio-input {
+  width: 100%;
+  max-width: 700px;
+  padding: 12px 20px;
+  border: 2px solid #ccc;
+  font-size: 18px;
+  box-sizing: border-box;
+}
+
+.file-input {
+  height: 200px;
+  cursor: pointer;
+}
+
+#bio-input {
+  height: 150px;
+  background-color: #fafafa;
+  resize: none;
+}
+
+#youtubeUrl {
+  width: 90%;
+  max-width: 700px;
+  padding: 12px 16px;
+  border: 2px solid lightgrey;
+  background-color: lightgray;
+  border-radius: 8px;
+  font-size: 16px;
+  margin: 0 auto 20px auto;
+  display: block;
+}
+
+#youtubeUrl:focus {
+  outline: none;
+  border-color: #9f2120;
+  box-shadow: 0 0 0 3px rgba(159, 33, 32, 0.1);
+}
+
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  margin: 20px auto;
+  border: 1px solid #bbb;
+}
+
+.embed-container p {
+  color: #bbb;
+}
+
+.embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* confirm 버튼 */
+.post-actions {
+  text-align: right;
+  margin-bottom: 30px; /* 필요 시 추가 여백 */
+}
+
+.post-button {
+  background-color: #9f2120;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  opacity: 90%;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* right */
+
+.right-sidebar {
+  min-height: 500px;
+}
+
+.nav-item > a {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.nav-item > a:hover {
+  color: #912d2d;
+  border-color: #912d2d;
+  background-color: #f9f1f1;
+}
+
+.nav-item > a.active-home,
+.nav-item > a.active-playlist {
+  background-color: #912d2d;
+  color: white;
+  border: 1px solid #912d2d;
+  font-weight: bold;
+}
+
+.nav-item > a i {
+  margin-right: 10px;
+  font-size: 18px;
+  width: 20px;
+  text-align: center;
+}
+
+/* 아이콘 색상 변경 */
+/* Profile 메뉴 항목 (두 번째 메뉴)에 스타일 적용 */
+.nav-sidebar .nav-item:nth-child(5) > a {
+  background-color: #912d2d;
+  color: white;
+  border: 1px solid #912d2d;
+  font-weight: bold;
+}
+
+.nav-sidebar .nav-item:nth-child(5) > a i {
+  color: white;
+}
+
+/* 반응형 */
+@media (max-width: 1250px) {
+  .container {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container-main {
+    flex-direction: column;
+  }
+
+  .left-sidebar {
+    min-width: 100%;
+    padding: 10px;
+  }
+
+  .middle-sidebar {
+    padding: 15px;
+  }
+
+  .right-sidebar {
+    min-width: 100%;
+    min-height: 100%;
+    padding: 10px;
+  }
+
+  #youtubeUrl {
+    width: 95%;
+    max-width: none;
+  }
+
+  .embed-container {
+    margin: 15px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .middle-sidebar {
+    padding: 10px;
+  }
+
+  #youtubeUrl {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .post-button {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  .embed-container {
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .middle-sidebar {
+    padding: 5px;
+  }
+
+  #youtubeUrl {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .post-actions {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .post-button {
+    padding: 5px 10px;
+    font-size: 10px;
+    margin: 0 2px;
+  }
+}

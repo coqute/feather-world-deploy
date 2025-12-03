@@ -1,0 +1,26 @@
+<div class="right-sidebar">
+  <div class="nav-sidebar">
+    <a id="home" th:href="@{/{member}/minihome(member=${memberNo})}">
+      <div class="nav-item"><span class="fas fa-house"></span>Home</div>
+    </a>
+    <a th:href="@{/{member}/profile(member=${memberNo})}">
+      <div class="nav-item"><span class="fas fa-user"></span>Profile</div>
+    </a>
+    <a th:href="@{/{member}/board(member=${memberNo})}">
+      <div class="nav-item">
+        <span class="fas fa-clipboard-list"></span>Board
+      </div>
+    </a>
+    <a th:href="@{/{member}/friendList(member=${memberNo})}">
+      <div class="nav-item">
+        <span class="fas fa-user-friends"></span>Friendlist
+      </div>
+    </a>
+    <a th:href="@{/{member}/playlist(member=${memberNo})}">
+      <div class="nav-item"><span class="fas fa-play"></span>Playlist</div>
+    </a>
+    <a th:href="@{/{member}/guestbook(member=${memberNo})}">
+      <div class="nav-item"><span class="fas fa-book"></span>Guestbook</div>
+    </a>
+  </div>
+</div>

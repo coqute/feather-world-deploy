@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FeatherWorld - Profile</title>
+
+    <!-- 공용 CSS/JS 불러오기 -->
+    <th:block th:replace="~{common/common}"></th:block>
+
+    <!-- 프로필 전용 CSS -->
+    <link rel="stylesheet" href="/css/profile/Profile.css" />
+  </head>
+  <body
+    class="minihome-page"
+    th:data-member-no="${memberNo != null ? memberNo : 0}"
+  >
+    <div class="center-page">
+      <div class="center-content">
+        <div class="container">
+          <!-- Header Fragment -->
+          <div th:replace="~{common/header}"></div>
+
+          <div class="content-container">
+            <!-- Left Sidebar -->
+            <div class="left-sidebar">
+              <div th:replace="~{common/leftsidebar}"></div>
+            </div>
+
+            <!-- Middle Panel -->
+            <div class="middle-content">
+              <div>
+                <th:block th:if="${profile != null}">
+                  <img
+                    th:src="|${profile.imgPath}${profile.imgRename}|"
+                    alt="사용자 프로필 이미지"
+                    style="max-width: 50%; height: auto"
+                  />
+                </th:block>
+                <th:block th:if="${profile == null}">
+                  <img
+                    th:src="#{user.default.profile}"
+                    alt="사용자 프로필 이미지"
+                  />
+                </th:block>
+  
+                <!-- Bio 섹션 -->
+                <div class="bio-section">
+                  <textarea
+                    readonly
+                    class="Comment-home"
+                    placeholder="안녕하세요! FeatherWorld에 오신 걸 환영합니다."
+                    th:text="${profile != null ? profile.profileContent : ''}"
+                    style="resize: none !important; overflow: auto; height: 100px"
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- 하단 버튼 -->
+              <div
+                class="post-actions"
+                th:if="${session.loginMember != null and session.loginMember.memberNo == memberNo}"
+              >
+                <a
+                  th:href="@{/{memberNo}/profileupdate(memberNo=${memberNo})}"
+                  class="post-button"
+                  >Profile Update</a
+                >
+
+                <a
+                  th:href="@{/{memberNo}/profiledelete(memberNo=${memberNo})}"
+                  class="post-button"
+                >
+                  Delete Account
+                </a>
+              </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div th:replace="~{common/navSidebar}"></div>
+          </div>
+
+          <!-- Footer -->
+          <div th:replace="~{common/footer}"></div>
+        </div>
+
+        <!-- JS -->
+      </div>
+    </div>
+
+    <script th:inline="javascript">
+      const memberNo = /*[[${memberNo}]]*/ 0;
+    </script>
+    <script src="/js/profile/profile.js"></script>
+
+    <script src="/js/miniHome/leftSidebar.js"></script>
+  </body>
+</html>

@@ -1,0 +1,187 @@
+/* 보드 타입 사이드바 */
+.board-type-sidebar {
+  display: flex;
+  flex-direction: column;
+  max-height: 560px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.board-type-sidebar .board-type-title {
+  font-weight: 600;
+}
+
+.board-type-sidebar .board-type-item {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.board-type-sidebar .board-type-item:hover,
+.board-type-sidebar .board-type-item:hover > .fa-lock {
+  transition-duration: 0.2s;
+  background-color: #9f2120;
+  color: white;
+  border-color: #9f2120;
+}
+
+.board-type-sidebar .board-type-item.selected,
+.board-type-sidebar .board-type-item.selected > .fa-lock {
+  background-color: #9f2120;
+  color: white;
+  border-color: #9f2120;
+}
+
+.board-type-item > .fa-lock {
+  position: absolute;
+  left: -4px;
+  font-size: 10px;
+  color: #9f2120;
+}
+
+.board-type-item > input[name="boardName"] {
+  font-family: "Pretendard", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.board-type-sidebar > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.board-type-sidebar > div:first-child > span {
+  display: inline-block;
+  align-items: center;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #9f2120;
+  color: white;
+}
+
+.edit-button {
+  cursor: pointer;
+  font-size: 12px;
+}
+.edit-button:hover {
+  opacity: 90%;
+}
+.edit-button > i {
+  margin-left: 5px;
+}
+
+.board-type-item > .icon-wrap {
+  display: none;
+}
+.board-type-item .fa-solid {
+  margin: 0 5px;
+}
+.board-type-item .fa-solid:hover {
+  transition-duration: 0.2s;
+  opacity: 50%;
+}
+
+.add-folder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-folder:hover {
+  transition-duration: 0.2s;
+  background-color: #9f2120;
+  color: white;
+  border-color: #9f2120;
+}
+
+.add-folder > span {
+  margin: 0 10px;
+}
+
+.add-folder-form {
+  display: flex;
+  flex-direction: column;
+  transition-duration: 0.5s;
+  background-color: white;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 2px solid #9f2120;
+}
+
+.add-folder-input {
+  padding: 5px;
+  margin: 5px;
+  font-weight: 600;
+}
+
+.folder-form-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.folder-form-footer > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 65px;
+  height: 30px;
+}
+
+.folder-form-footer span {
+  margin: 0 5px;
+  color: #9f2120;
+}
+
+.folder-form-footer > div:last-child > span {
+  background-color: #9f2120;
+  width: 60px;
+  padding: 4px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+}
+
+/* 권한 토글 */
+.toggle-authority {
+  box-sizing: content-box;
+  position: relative;
+  width: 30px;
+  height: 15px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.toggle-authority > div {
+  position: absolute;
+  transition-duration: 0.2s;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #9f2120;
+}
+
+/* 반응형 */
+@media (max-width: 992px) {
+  .board-type-sidebar {
+    max-height: 240px;
+  }
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FeatherWorld - Board</title>
+
+    <th:block th:replace="~{common/common}"></th:block>
+    <link rel="stylesheet" href="/css/board/boardType.css">
+    <link rel="stylesheet" href="/css/board/boardList.css" />
+  </head>
+  <body>
+	<div class="center-page">
+	     <div class="center-content">
+    <div class="container">
+      <!-- 헤더 Include -->
+      <th:block th:replace="~{common/header}"></th:block>
+
+      <div class="content-container">
+        <!-- 좌측 게시판 리스트 Include -->
+        <th:block th:replace="~{board/boardTypeSidebar}"></th:block>
+
+        <!-- 중앙 게시글 목록 -->
+        <div class="main-content">
+          <!-- JS가 동적으로 게시글 목록 생성 -->
+          <!-- JS가 동적으로 페이징 버튼 생성 -->
+        </div>
+
+        <!-- 우측 네비게이션 바 Include -->
+        <th:block th:replace="~{common/navSidebar}"></th:block>
+      </div>
+
+      <!-- 푸터 Include -->
+      <th:block th:replace="~{common/footer}"></th:block>
+    </div>
+	     </div>
+	</div>
+    <!-- JS 에서 쓰기 버튼 클릭 이벤트에 활용할 현재 게시판 종류 번호 선언 -->
+    <script th:inline="javascript">
+      const memberNo = /*[[${memberNo}]]*/ 0;
+      const loginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ 0;
+      const defaultBoardCode = /*[[${session.boardTypeList[0]?.boardCode}]]*/ 0;
+      const currentBoardCode = /*[[${currentBoardCode}]]*/ 0;
+    </script>
+    <script src="/js/board/boardList.js"></script>
+  </body>
+</html>

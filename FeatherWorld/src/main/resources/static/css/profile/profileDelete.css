@@ -1,0 +1,209 @@
+/* 가운데 본문 영역 */
+.middle-sidebar {
+  flex: 1 1 auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+/* 제목 */
+.middle-sidebar h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #912d2d;
+}
+
+/* 이용약관 박스 */
+.terms-container {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  height: 200px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.terms-content strong {
+  display: block;
+  margin-top: 10px;
+  color: #9f2120;
+}
+
+/* 체크박스 */
+.checkbox-container {
+  margin: 10px 0 25px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+/* 비밀번호 입력 구역 */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+/* 버튼 스타일 */
+.post-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.post-button,
+button.post-button {
+  padding: 10px 20px;
+  background-color: #9f2120;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.post-button:hover {
+  background-color: #9f2120;
+  opacity: 90%;
+}
+
+/* 오른쪽 사이드바 영역   */
+.right-sidebar {
+  flex: 0 0 250px;
+  padding: 20px;
+  background-color: #fff;
+  border-left: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+/* 기존 CSS에 추가할 스타일들 */
+
+/* 계정 타입 안내 영역 */
+.account-type-info {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.account-type-info.normal-member {
+  border-left: 5px solid #007bff;
+}
+
+.account-type-info.kakao-member {
+  border-left: 5px solid #fee500;
+  background: #fffdf0;
+}
+
+.account-type-info h3 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.account-type-info p {
+  color: #666;
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* 카카오 탈퇴 안내 */
+.kakao-withdrawal-notice {
+  margin-bottom: 25px;
+}
+
+.kakao-withdrawal-notice .terms-content {
+  background: #fff9e6;
+  border: 2px solid #fee500;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* 체크박스 스타일 개선 */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 12px;
+  width: 18px;
+  height: 18px;
+  accent-color: #9f2120;
+}
+
+.checkbox-container label {
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* 카카오 회원용 체크박스 스타일 */
+#kakaoAgree + label {
+  color: #d68910;
+  font-weight: 600;
+}
+
+/* 버튼 텍스트 조정 */
+.post-button span {
+  margin-left: 5px;
+}
+
+/* 반응형 개선 */
+@media (max-width: 768px) {
+  .account-type-info {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .account-type-info h3 {
+    font-size: 16px;
+  }
+
+  .account-type-info p {
+    font-size: 13px;
+  }
+
+  .kakao-withdrawal-notice .terms-content {
+    padding: 15px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.featherworld.project.playlist.model.mapper.PlaylistMapper">
+  	
+  <select id="selectPlaylist">
+  	SELECT YOUTUBE_URL FROM PLAYLIST
+  	WHERE MEMBER_NO = #{memberNo}
+  </select>
+  
+  <insert id="insertPlaylist">
+  	INSERT INTO PLAYLIST
+  	VALUES(#{memberNo}, #{youtubeUrl})
+  </insert>
+  
+  <update id="updatePlaylist">
+  	UPDATE PLAYLIST SET
+	YOUTUBE_URL = #{youtubeUrl}
+	WHERE MEMBER_NO = #{memberNo}
+  </update>
+  
+  <delete id="deletePlaylist">
+  	DELETE FROM PLAYLIST
+  	WHERE MEMBER_NO = #{memberNo}
+  </delete>
+</mapper>

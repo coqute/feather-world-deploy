@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.featherworld.project.member.model.mapper.MemberMapper">
+
+    <!-- 회원 여부 확인 -->
+    <select id="checkMember" resultType="_int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        WHERE MEMBER_NO = ${memberNo}
+        AND MEMBER_DEL_FL = 'N'
+    </select>
+
+    <!-- 탈퇴 회원 조회 -->
+    <select id="deletedMembers" resultType="Member">
+        SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, MEMBER_TEL, ENROLL_DATE
+        FROM MEMBER
+        WHERE MEMBER_DEL_FL = 'Y'
+    </select>
+
+    <!-- 탈퇴 회원 한 명 삭제 -->
+    <delete id="deleteMember">
+        DELETE FROM MEMBER
+        WHERE MEMBER_NO = ${memberNo}
+    </delete>
+    
+    <!-- 회원가입 SQL 영민 -->
+    
+    <insert id="signUp" parameterType="Member">
+
+    <!-- 시퀀스 값을 먼저 가져와서 memberNo에 설정 -->
+    <selectKey keyProperty="memberNo" resultType="int" order="BEFORE">
+    
+    SELECT SEQ_MEMBER_NO.NEXTVAL FROM DUAL
+    
+    </selectKey>
+
+    INSERT INTO MEMBER VALUES(
+    #{memberNo},
+    #{memberEmail},
+    #{memberPw},
+    #{memberName},
+    #{memberTel},
+    #{memberAddress},
+    NULL,
+    DEFAULT, DEFAULT, DEFAULT, DEFAULT, NULL
+    )
+  </insert>
+	
+	<!-- 회원가입을 하고나서 바로 boardType 하나 추가함 -->
+	<insert id="setDefaultBoardType">
+	INSERT INTO BOARD_TYPE
+	VALUES(SEQ_BOARD_CODE_NO.NEXTVAL,DEFAULT,DEFAULT,#{memberNo})
+		
+	</insert>
+	
+	<!-- 로그인  -->
+	<select id="login">
+	SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, MEMBER_ADDRESS,
+	MEMBER_PW, MEMBER_TEL, MEMBER_IMG, MEMBER_INTRO,
+	HOME_TITLE
+	FROM MEMBER
+	WHERE MEMBER_EMAIL = #{memberEmail}
+	AND MEMBER_DEL_FL = 'N'
+	</select>
+	
+	<!--  회원가입중 이메일중복확인 -->
+	<select id="checkEmail">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE MEMBER_EMAIL = #{memberEmail}
+	AND MEMBER_DEL_FL = 'N'
+	</select>
+	
+	<!--  가입된 회원의 이메일 찾기 -->
+	<select id="findId" resultType="Member" parameterType="Member">
+    SELECT MEMBER_EMAIL
+    FROM MEMBER
+    WHERE MEMBER_NAME = #{memberName}
+    AND MEMBER_TEL = #{memberTel}
+	</select>
+	
+	<!-- 가입된 회원의 비밀번호 변경 -->
+	<update id="resetPassword">
+	UPDATE MEMBER SET
+	MEMBER_PW = #{memberPw}
+	WHERE MEMBER_EMAIL = #{memberEmail}	
+	</update>
+	
+
+	<!-- 메인페이지에서 회원이름 검색창 -->
+	<select id="searchMember">
+	SELECT MEMBER_EMAIL, MEMBER_NAME, MEMBER_IMG, MEMBER_NO
+	FROM MEMBER
+	WHERE MEMBER_NAME LIKE '%' || #{memberName} || '%'
+	AND MEMBER_DEL_FL = 'N'
+	</select>
+	
+	<!-- 전화번호 중복확인 -->
+	<select id="checkTel" resultType="_int">
+    SELECT COUNT(*)
+    FROM MEMBER
+    WHERE MEMBER_TEL = #{memberTel}
+    AND MEMBER_DEL_FL = 'N'
+	</select>
+	
+	<!-- kakaotoken이 null인지 아닌지확인 -->
+	<select id="findKakaoMember" resultType="Member">
+        SELECT 
+            MEMBER_NO,
+            MEMBER_EMAIL,
+            MEMBER_NAME,
+            KAKAO_ACCESS_TOKEN
+        FROM MEMBER
+        WHERE MEMBER_EMAIL = #{memberEmail}
+        AND MEMBER_DEL_FL = 'N'
+    </select>
+
+    <!-- kakaoToken 업데이트 (매개변수 이름 오타 수정) -->
+    <update id="updateKakaToken" parameterType="map">
+        UPDATE MEMBER SET
+            KAKAO_ACCESS_TOKEN = #{kakaoAccessToken}
+        WHERE MEMBER_EMAIL = #{memberEmail}
+        AND MEMBER_DEL_FL = 'N'
+    </update>
+    
+    <select id="checkmemberEmail" resultType="Member">
+  	    SELECT 
+        MEMBER_NO,
+        MEMBER_PW, 
+        MEMBER_EMAIL, 
+        MEMBER_NAME, 
+        MEMBER_TEL, 
+        MEMBER_ADDRESS,
+        MEMBER_IMG, 
+        MEMBER_INTRO,
+        HOME_TITLE, 
+        KAKAO_ACCESS_TOKEN
+        FROM MEMBER
+        WHERE MEMBER_EMAIL = #{memberEmail}
+        AND MEMBER_DEL_FL = 'N'
+</select>
+
+    <!-- 카카오 회원 가입 -->
+    <insert id="insertMember" parameterType="Member">
+        <selectKey keyProperty="memberNo" resultType="int" order="BEFORE">
+            SELECT SEQ_MEMBER_NO.NEXTVAL FROM DUAL
+        </selectKey>
+        
+            INSERT INTO MEMBER VALUES(
+            #{memberNo},
+            #{memberEmail},
+            NULL,
+            #{memberName},
+            NULL,
+            NULL,
+            NULL,
+            DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{kakaoAccessToken}
+        )
+    </insert>
+    
+    
+   		  <!--  선택적으로 회원정보 수정 가능함 -->
+		<update id="updateMember">
+    	UPDATE MEMBER
+    	<set>
+        <if test="memberTel != null and memberTel != ''">
+            MEMBER_TEL = #{memberTel},
+        </if>
+        <if test="memberPw != null and memberPw != ''">
+            MEMBER_PW = #{memberPw},
+        </if>
+        <if test="memberName != null and memberName != ''">
+            MEMBER_NAME = #{memberName},
+        </if>
+    	</set>
+   		 WHERE MEMBER_NO = #{memberNo}
+		</update>
+
+	<select id="getTodayBestMembers" resultType="Member">
+  	<![CDATA[
+	SELECT * FROM (
+   		    SELECT 
+    	    m.MEMBER_NAME as memberName,
+        	m.MEMBER_IMG as memberImg ,
+        	m.MEMBER_NO as memberNO
+    		FROM MEMBER m, TODAY t
+    			WHERE m.MEMBER_NO = t.HOME_NO
+    			AND TRUNC(t.VISIT_DATE) = TRUNC(SYSDATE)
+    			GROUP BY m.MEMBER_NO, m.MEMBER_NAME, m.MEMBER_IMG
+    			ORDER BY COUNT(*) DESC
+	)
+	WHERE ROWNUM <= 6
+	]]>
+	</select>
+	
+	<select id="checkmemberEmailIncludingDeleted" resultType="Member">
+    SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NAME, MEMBER_DEL_FL
+    FROM MEMBER
+    WHERE MEMBER_EMAIL = #{memberEmail}
+    <!-- MEMBER_DEL_FL 조건 없음 - 탈퇴한 회원도 조회 -->
+</select>
+
+    <!-- DB에 있는 이미지 이름 조회 -->
+    <select id="selectDbImageList">
+        SELECT SUBSTR(MEMBER_IMG, INSTR(MEMBER_IMG, '/', -1) + 1) AS "rename"
+        FROM MEMBER
+        WHERE MEMBER_IMG IS NOT NULL
+        
+        UNION
+
+        SELECT CAST(IMG_RENAME AS VARCHAR2(300)) AS "rename"
+        FROM PROFILE
+        
+        UNION
+        
+        SELECT CAST(IMG_RENAME AS VARCHAR2(300)) AS "rename"
+        FROM BOARD_IMG
+    </select>
+    
+</mapper>

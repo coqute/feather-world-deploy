@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.featherworld.project.friend.model.mapper.IlchonMapper">
+  
+  <select id="selectOne" resultType="Ilchon">
+	SELECT MEMBER_IMG "memberImg", MEMBER_NAME "memberName", FROM_NICKNAME "fromNickname", TO_NICKNAME "toNickname",  TO_MEMBER_NO "toMemberNo", FROM_MEMBER_NO "fromMemberNo"
+	FROM(
+		(SELECT MEMBER_IMG, MEMBER_NAME, FROM_NICKNAME , TO_NICKNAME , TO_MEMBER_NO, FROM_MEMBER_NO
+				FROM ILCHON 
+				JOIN MEMBER ON MEMBER.MEMBER_NO = ILCHON.TO_MEMBER_NO
+				WHERE (ILCHON.FROM_MEMBER_NO = #{memberNo1}
+				AND ILCHON.TO_MEMBER_NO = #{memberNo2})
+				AND IS_ILCHON='Y') -- FROM_MEMBER_NO기준으로 JOIN
+		
+		UNION
+		(SELECT  MEMBER_IMG, MEMBER_NAME, FROM_NICKNAME , TO_NICKNAME , TO_MEMBER_NO, FROM_MEMBER_NO
+				FROM ILCHON 
+				JOIN MEMBER ON MEMBER.MEMBER_NO = ILCHON.FROM_MEMBER_NO
+				WHERE ( ILCHON.FROM_MEMBER_NO = #{memberNo2} 
+				AND ILCHON.TO_MEMBER_NO = #{memberNo1})
+				AND IS_ILCHON='Y') -- TO_MEMBER_NO기준으로 JOIN
+	)
+  </select>
+  <select id="selectOneYN" resultType="Ilchon"><!--AND IS_ILCHON='Y' 구문 삭제 -->
+	SELECT MEMBER_IMG "memberImg", MEMBER_NAME "memberName", FROM_NICKNAME "fromNickname", TO_NICKNAME "toNickname",  TO_MEMBER_NO "toMemberNo", FROM_MEMBER_NO "fromMemberNo"
+	FROM(
+		(SELECT MEMBER_IMG, MEMBER_NAME, FROM_NICKNAME , TO_NICKNAME , TO_MEMBER_NO, FROM_MEMBER_NO
+				FROM ILCHON 
+				JOIN MEMBER ON MEMBER.MEMBER_NO = ILCHON.TO_MEMBER_NO
+				WHERE (ILCHON.FROM_MEMBER_NO = #{memberNo1}
+				AND ILCHON.TO_MEMBER_NO = #{memberNo2})
+				) -- FROM_MEMBER_NO기준으로 JOIN
+		
+		UNION
+		(SELECT  MEMBER_IMG, MEMBER_NAME, FROM_NICKNAME , TO_NICKNAME , TO_MEMBER_NO, FROM_MEMBER_NO
+				FROM ILCHON 
+				JOIN MEMBER ON MEMBER.MEMBER_NO = ILCHON.FROM_MEMBER_NO
+				WHERE ( ILCHON.FROM_MEMBER_NO = #{memberNo2} 
+				AND ILCHON.TO_MEMBER_NO = #{memberNo1})
+				) -- TO_MEMBER_NO기준으로 JOIN
+	)
+  </select>
+  <select id="selectPagination" resultType="Ilchon"><!--Roubounds 적용 안됨-->
+	
+	
+	SELECT MEMBER_IMG "memberImg", MEMBER_NAME "memberName", "nickname" "fromNickname",  TO_MEMBER_NO "toMemberNo", FROM_MEMBER_NO "fromMemberNo"
+	FROM(
+		(SELECT MEMBER_IMG, MEMBER_NAME, FROM_NICKNAME "nickname", TO_MEMBER_NO, FROM_MEMBER_NO
+				FROM ILCHON 
+				JOIN MEMBER ON MEMBER.MEMBER_NO = ILCHON.TO_MEMBER_NO
+				WHERE (ILCHON.FROM_MEMBER_NO = #{loginMemberNo} )
+				AND IS_ILCHON='Y') <!-- FROM_MEMBER_NO기준으로 JOIN-->
+		
+		UNION
+		(SELECT  MEMBER_IMG, MEMBER_NAME, TO_NICKNAME "nickname", TO_MEMBER_NO, FROM_MEMBER_NO
+				FROM ILCHON 
+				JOIN MEMBER ON MEMBER.MEMBER_NO = ILCHON.FROM_MEMBER_NO
+				WHERE ( ILCHON.TO_MEMBER_NO = #{loginMemberNo} )
+				AND IS_ILCHON='Y') <!-- TO_MEMBER_NO기준으로 JOIN-->
+	)
+	
+	
+  </select>
+  
+   <select id="selectIncomingPagination" resultType="Ilchon"><!--Roubounds 적용 안됨-->
+	
+	
+	SELECT MEMBER_IMG "memberImg", MEMBER_NAME "memberName", "nickname" "fromNickname",  TO_MEMBER_NO "toMemberNo", FROM_MEMBER_NO "fromMemberNo"
+	FROM(
+		<!--(SELECT MEMBER_IMG, MEMBER_NAME, FROM_NICKNAME "nickname", TO_MEMBER_NO, FROM_MEMBER_NO
+				FROM ILCHON 
+				JOIN MEMBER ON MEMBER.MEMBER_NO = ILCHON.TO_MEMBER_NO
+				WHERE (ILCHON.FROM_MEMBER_NO = #{loginMemberNo} )
+				AND IS_ILCHON='N') --> <!-- FROM_MEMBER_NO기준으로 JOIN-->
+		
+		<!--UNION-->
+		(SELECT  MEMBER_IMG, MEMBER_NAME, FROM_NICKNAME "nickname", TO_MEMBER_NO, FROM_MEMBER_NO
+				FROM ILCHON 
+				JOIN MEMBER ON MEMBER.MEMBER_NO = ILCHON.FROM_MEMBER_NO
+				WHERE ( ILCHON.TO_MEMBER_NO = #{loginMemberNo} )
+				AND IS_ILCHON='N') <!-- TO_MEMBER_NO기준으로 JOIN-->
+	)
+	
+	
+  </select>
+  <select id="selectSendedPagination" resultType="Ilchon"><!--Roubounds 적용 안됨-->
+	
+	
+	SELECT MEMBER_IMG "memberImg", MEMBER_NAME "memberName", "nickname" "fromNickname",  TO_MEMBER_NO "toMemberNo", FROM_MEMBER_NO "fromMemberNo"
+	FROM(
+		(SELECT MEMBER_IMG, MEMBER_NAME, FROM_NICKNAME "nickname", TO_MEMBER_NO, FROM_MEMBER_NO
+				FROM ILCHON 
+				JOIN MEMBER ON MEMBER.MEMBER_NO = ILCHON.TO_MEMBER_NO
+				WHERE (ILCHON.FROM_MEMBER_NO = #{loginMemberNo} )
+				AND IS_ILCHON='N')  <!-- FROM_MEMBER_NO기준으로 JOIN-->
+		
+		<!--UNION-->
+		<!--(SELECT  MEMBER_IMG, MEMBER_NAME, TO_NICKNAME "nickname", TO_MEMBER_NO, FROM_MEMBER_NO
+				FROM ILCHON 
+				JOIN MEMBER ON MEMBER.MEMBER_NO = ILCHON.FROM_MEMBER_NO
+				WHERE ( ILCHON.TO_MEMBER_NO = #{loginMemberNo} )
+				AND IS_ILCHON='N')--> <!-- TO_MEMBER_NO기준으로 JOIN-->
+	)
+	
+	
+  </select>
+  
+  <select id ="countIlchons" resultType = "int">
+  	
+  	SELECT COUNT(*)
+	FROM ILCHON
+	WHERE IS_ILCHON = 'Y'
+	AND (ILCHON.FROM_MEMBER_NO = #{loginMemberNo} 
+	OR ILCHON.TO_MEMBER_NO = #{loginMemberNo})
+  </select>
+  <select id ="countIncomingIlchons" resultType = "int">
+  	
+  	SELECT COUNT(*)
+	FROM ILCHON
+	WHERE IS_ILCHON = 'N'
+	AND (ILCHON.TO_MEMBER_NO = #{loginMemberNo})
+  </select>
+  <select id ="countSendedIlchons" resultType = "int">
+  	
+  	SELECT COUNT(*)
+	FROM ILCHON
+	WHERE IS_ILCHON = 'N'
+	AND (ILCHON.FROM_MEMBER_NO = #{loginMemberNo})
+  </select>
+  
+  <!--
+	들어온 memberNo == TO_MEMBER_NO, loginMember == FROM_MEMBER_NO라면 -> FROM_NICKNAME을 수정
+	아니면 들어온 memberNO == FROM_MEMBER_NO, loginMember == TO_MEMBER_NO라면 -> TO_NICKNAME을 수정
+  -->
+  <update id="updateToIlchonNickName">
+  	UPDATE ILCHON SET TO_NICKNAME = #{nickname} 
+  	WHERE  FROM_MEMBER_NO = #{memberNo} 
+  	AND TO_MEMBER_NO = #{loginMemberNo}
+  </update>
+  
+  <update id="updateFromIlchonNickName">
+  	UPDATE ILCHON SET FROM_NICKNAME = #{nickname} 
+  	WHERE  FROM_MEMBER_NO =  #{loginMemberNo}  
+  	AND TO_MEMBER_NO = #{memberNo}
+  </update>
+  
+ <insert id="insertIlchon" parameterType="map">
+  INSERT INTO ILCHON (FROM_MEMBER_NO, TO_MEMBER_NO, FROM_NICKNAME, TO_NICKNAME, IS_ILCHON)
+  SELECT 
+    #{loginMemberNo},
+    #{targetMemberNo},
+    #{nickname},
+    M.MEMBER_NAME,
+    'N'
+  FROM MEMBER M
+  WHERE M.MEMBER_NO = #{targetMemberNo}
+</insert>
+
+ <update id="updateIlchonRow_FromNickname">
+  	UPDATE ILCHON SET TO_NICKNAME = #{nickname} , IS_ILCHON = 'Y'
+  	WHERE  FROM_MEMBER_NO = #{targetMemberNo} 
+  	AND TO_MEMBER_NO = #{loginMemberNo}
+  </update>
+  
+  <update id="updateIlchonRow_ToNickname">
+  	UPDATE ILCHON SET FROM_NICKNAME = #{nickname}, IS_ILCHON = 'Y'
+  	WHERE  FROM_MEMBER_NO =  #{loginMemberNo}  
+  	AND TO_MEMBER_NO = #{targetMemberNo}
+  </update>
+  <delete id="deleteIlchon">
+  	DELETE FROM ILCHON 
+  	WHERE 
+  	(FROM_MEMBER_NO =  #{loginMemberNo}  AND TO_MEMBER_NO = #{targetMemberNo})
+  	OR(FROM_MEMBER_NO =  #{targetMemberNo} AND TO_MEMBER_NO = #{loginMemberNo})
+  </delete>
+</mapper>
+<!-- 
+	5월 15일 수정사항 
+
+일촌 보낸사람(FROM_MEMBER_NO)와 일촌 받은사람(TO_MEMBER_NO)
+모두 select할수 있도록 "select" 와 "countIlchons" 수정-->

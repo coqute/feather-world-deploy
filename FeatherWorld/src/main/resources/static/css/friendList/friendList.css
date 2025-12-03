@@ -1,0 +1,361 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+.left-panel,
+.left-panel * {
+  font-family: "Pretendard", sans-serif;
+  font-weight: 600; /* 세미볼드 */
+}
+header,
+footer {
+  width: 100%;
+}
+body {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+    sans-serif;
+  font-weight: 600; /* semi-bold */
+}
+
+.left-panel {
+  border: 2px solid #ccc; /* 테두리 두께 및 색상 */
+  border-radius: 10px; /* 모서리 둥글게 (선택) */
+  padding: 20px; /* 내부 여백 */
+  background-color: #fdfdfd; /* 배경색 (선택) */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 (선택) */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  display: flex;
+
+  flex-direction: column; /* ✅ 위→아래로 정렬 */
+
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+
+  width: 100%;
+  height: 500px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  justify-content: space-between;
+}
+
+.left-panel {
+  width: 250px;
+  border-right: 1px solid #eee;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.today {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+.logo h1 {
+  font-size: 16px;
+  color: #8b4513;
+}
+
+.profile-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.profile-handle {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-weight: bold;
+  font-size: 16px;
+  color: #912d2d;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #888;
+}
+
+.profile-action {
+  width: 100%;
+  margin-top: 10px;
+
+  /* 버튼을 옆으로 정렬 */
+  display: flex;
+  justify-content: space-between; /* 양쪽 끝으로 정렬 */
+  gap: 8px; /* 버튼 사이 간격 */
+}
+
+.action-button {
+  flex: 1; /* 두 버튼이 동일한 너비 */
+  padding: 6px 0; /* 버튼 높이 줄이기 */
+  font-size: 12px; /* 폰트 크기 줄이기 */
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.Edit-button {
+  background-color: #912d2d;
+  color: white;
+}
+
+.Logout-button {
+  background-color: #912d2d;
+  color: white;
+  border: 1px solid #ccc;
+}
+
+.Board-button {
+  background-color: rgb(206, 204, 204);
+  color: black;
+  border: 1px solid #ccc;
+  padding: 8px 0;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer; /* 크기 조정 */
+  width: 100%; /* 너비 유지 */
+  height: 70px;
+}
+.surfing-button {
+  background-color: #912d2d;
+  color: white;
+  border: 1px solid #ccc;
+}
+
+.middle-panel {
+  border: 2px solid #ccc; /* 테두리 두께 및 색상 */
+  border-radius: 10px; /* 모서리 둥글게 (선택) */
+  padding: 20px; /* 내부 여백 */
+  background-color: #fdfdfd; /* 배경색 (선택) */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 (선택) */
+}
+.middle-panel {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.post {
+  margin-bottom: 30px;
+}
+
+.post-image {
+  width: 100%;
+  height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.post-image img {
+  width: 100%;
+  height: 200%;
+  object-fit: cover;
+}
+
+/* 원하는 위치에 이 CSS 추가 */
+.file-input {
+  font-size: 18px; /* 글씨 크기 키우기 */
+  padding: 12px 20px; /* 내부 여백 늘리기 */
+  width: 100%; /* 전체 너비로 확장 (선택사항) */
+  max-width: 400px; /* 최대 너비 지정 */
+  height: 150px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.post-content {
+  color: #333;
+  height: 150px;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  border: 1px solid #ccc; /* 테두리 추가 */
+  border-radius: 5px; /* 모서리 둥글게 (선택 사항) */
+  padding: 15px; /* 내부 여백 추가 */
+  margin-top: 20px; /* 위에서 아래로 조금 떨어지게 */
+  background-color: #f9f9f9; /* 배경색 연하게 (선택 사항) */
+  font-size: 16px; /* 글씨 크기 조정 (선택 사항) */
+}
+
+.post-actions {
+  text-align: right;
+  gap: 10px;
+  height: 50px;
+}
+
+#youtubeUrl {
+  width: 90%; /* 너비를 90%로 키움 */
+  max-width: 700px; /* 최대 너비 제한 (선택사항) */
+  padding: 12px 16px;
+  border: 2px solid lightgrey;
+  background-color: lightgray;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin: 0 auto 20px auto; /* 좌우 자동 마진으로 가로 중앙 정렬 + 아래 여백 */
+  display: block;
+}
+
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 비율 유지 */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%; /* 필요 시 최대 너비 제한 */
+  margin: 20px auto; /* 가운데 정렬 및 위아래 여백 */
+}
+
+.embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.middle-panel {
+  text-align: center; /* 부모 컨테이너에서 중앙 정렬 */
+  padding: 20px;
+}
+
+.post-button {
+  padding: 6px 12px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  color: white;
+  font-size: 12px;
+  background-color: #912d2d;
+  cursor: pointer;
+}
+
+/* right */
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+.right-panel,
+.right-panel .menu-item {
+  font-family: "Pretendard", sans-serif;
+  font-weight: 700; /* Bold */
+}
+
+.right-panel {
+  border: 2px solid #ccc; /* 테두리 두께 및 색상 */
+  border-radius: 10px; /* 모서리 둥글게 (선택) */
+  padding: 20px; /* 내부 여백 */
+  background-color: #fdfdfd; /* 배경색 (선택) */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 (선택) */
+}
+
+.right-panel {
+  width: 200px;
+  padding: 20px;
+  border-left: 1px solid #eee;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 5px; /* 각 메뉴 간 간격 */
+  border: 1px solid #ccc; /* 테두리 */
+  border-radius: 10px; /* 모서리 둥글게 */
+  background-color: #fff; /* 배경 흰색 */
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold; /* 글씨 진하게 */
+  transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+  color: #912d2d;
+  border-color: #912d2d; /* hover 시 테두리 색상 변경 */
+  background-color: #f9f1f1;
+}
+
+.menu-item.playlist-list {
+  background-color: #912d2d;
+  color: white;
+  font-weight: bold;
+  border: 1px solid #912d2d;
+}
+
+.menu-item i {
+  margin-right: 10px;
+  font-size: 18px;
+  width: 20px;
+  text-align: center;
+}

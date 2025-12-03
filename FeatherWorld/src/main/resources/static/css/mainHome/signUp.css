@@ -1,0 +1,195 @@
+/* 회원가입 페이지만의 특별한 스타일 */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 회원가입 폼 전용 스타일 */
+.signup-container {
+  max-width: 800px;
+  margin: 40px auto; /* 상하 여백 40px로 증가 */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  margin: 0 0 30px;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 30px; /* 10px에서 30px로 간격 증가 */
+  margin-bottom: 15px;
+}
+
+.form-row .form-group {
+  flex: 1;
+  max-width: calc(50% - 15px); /* 너비 제한 추가 */
+}
+
+.input-with-button {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.input-with-button input {
+  flex: 1;
+  max-width: 300px;
+}
+
+.input-with-button .btn {
+  height: 42px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  background-color: #9f2120;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  opacity: 90%;
+  
+}
+
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-container .btn {
+  min-width: 100px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.required::before {
+  content: "* ";
+  color: #9f2120;
+}
+
+.validation-message {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+  height: 20px;
+}
+
+.invalid {
+  color: #9f2120;
+}
+
+.valid {
+  color: green;
+}
+
+.address-search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  align-items: center;
+}
+
+.address-search input {
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 0 10px;
+}
+
+.address-search input:first-child {
+  flex: 0 0 160px; /* 우편번호 */
+}
+
+.address-search input:nth-child(2) {
+  flex: 0 1 300px; /* 도로명/지번 주소 - 너비 제한 */
+  max-width: 300px;
+}
+
+#searchAddress {
+  height: 40px;
+  padding: 0 15px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* 추가: 헤더와 푸터에 여백을 주기 위한 스타일 */
+.header-container {
+  margin-bottom: 30px; /* 헤더 아래 여백 추가 */
+}
+
+.footer-container {
+  margin-top: 40px; /* 푸터 위 여백 추가 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 992px) {
+  .signup-container {
+    width: 95%;
+    margin: 20px auto; /* 모바일에서는 여백 줄임 */
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form-row .form-group {
+    max-width: 100%;
+  }
+
+  .address-search {
+    flex-direction: column;
+  }
+
+  .input-with-button {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .input-with-button input {
+    max-width: 100%;
+    width: 100%;
+  }
+}

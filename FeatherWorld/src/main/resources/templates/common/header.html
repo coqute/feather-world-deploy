@@ -1,0 +1,24 @@
+<header>
+  <div class="header-container">
+    <a class="logo" href="/">
+      <img src="/images/logo.png" alt="FeatherWorld" />
+      <span class="site-title">FeatherWorld</span>
+    </a>
+
+    <!-- 로그인된 상태 -->
+    <div class="user-info" th:if="${session.loginMember != null}">
+      Welcome to Feather World !
+      <span
+        class="user-name"
+        th:text="${session.loginMember?.memberName}"
+      ></span>
+      <a
+        th:href="@{/{memberNo}/minihome(memberNo=${session.loginMember?.memberNo})}"
+        class="home-icon-link"
+        title="My Home"
+      >
+        <i class="fas fa-home"></i>
+      </a>
+    </div>
+  </div>
+</header>

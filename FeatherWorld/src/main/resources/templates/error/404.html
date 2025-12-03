@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="#{app.name}">Feathers McGrew Semi Project</title>
+    <link rel="stylesheet" href="/css/mainHome/home.css" />
+    <link rel="stylesheet" href="/css/error/error.css" />
+    <link href="https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css" rel="stylesheet">
+
+    <th:block th:replace="~{common/common}"></th:block>
+</head>
+<body>
+<!-- Header Fragment -->
+<div th:replace="~{common/header}"></div>
+
+<main class="main-content">
+    <div class="container">
+        <div class="error-container">
+            <!-- 404 이미지 -->
+            <img src="/images/errors/404.png" alt="404 Error" class="error-image" />
+
+            <!-- 에러 메시지 -->
+            <h1 class="error-title">페이지를 찾을 수 없습니다</h1>
+            <p class="error-message">
+                죄송합니다. 요청하신 페이지가 존재하지 않거나<br>
+                일시적으로 사용할 수 없습니다.
+            </p>
+
+            <!-- 액션 버튼들 -->
+            <div class="error-actions">
+                <!-- 홈으로 가기 버튼 -->
+                <a href="/" class="home-button">
+                    <i class="fa-solid fa-house"></i>
+                    홈으로 돌아가기
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer Fragment -->
+<div th:replace="~{common/footer}"></div>
+
+<script th:inline="javascript">
+  // 서버에서 memberNo를 JavaScript 변수로 전달
+  const memberNo = /*[[${session.loginMember?.memberNo}]]*/ null;
+</script>
+
+</body>
+</html>

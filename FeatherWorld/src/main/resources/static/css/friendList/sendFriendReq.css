@@ -1,0 +1,141 @@
+/* 메인 콘텐츠 스타일 */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding: 20px 20px 20px 0; /* 위, 오른쪽, 아래, 왼쪽 */
+  height: 600px;
+}
+
+/* 뒤로가기 버튼 */
+.back-button {
+  margin-left: 20px;
+  border: none;
+}
+
+.back-button span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #9f2120;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  border: none; /* <- 이걸 추가해줘야 네모 테두리 제거 */
+  outline: none; /* <- 클릭 시 파란 외곽선 제거용 */
+}
+
+.back-button span:hover {
+  background-color: #7d1a19;
+}
+
+/* 일촌 요청 보내기 타이틀 */
+.reqTitle {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin: 30px 30px 50px 30px;
+}
+.reqTitle-font {
+  font-weight: bold;
+  margin: 10px;
+  font-size: xx-large;
+}
+
+/* 게시글 작성 폼 */
+.board-write {
+  width: 100%;
+}
+
+.board-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+/* 입력 그룹 */
+.input-group {
+  width: 100%;
+}
+
+.input-group.mb-4 {
+  margin-bottom: 20px;
+}
+
+/* 새로 정할 일촌명 입력 */
+.form-control {
+  width: 300px;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #9f2120;
+  box-shadow: 0 0 0 3px rgba(159, 33, 32, 0.1);
+}
+
+.form-control::placeholder {
+  color: #999;
+}
+
+.reqContent {
+  display: flex;
+  flex-direction: column; /* 세로로 쌓기 */
+  align-items: center; /* 가로 중앙 정렬 */
+  gap: 20px; /* 간격도 적당히 */
+}
+
+.btn-confirm {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-confirm {
+  background-color: #9f2120;
+  color: white;
+}
+
+.btn-confirm:hover {
+  background-color: #7d1a19;
+  box-shadow: 0 4px 12px rgba(159, 33, 32, 0.3);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 15px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-confirm {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-area textarea {
+    min-height: 300px;
+  }
+}

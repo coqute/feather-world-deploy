@@ -1,0 +1,120 @@
+/* 가운데 영역 기본 레이아웃 */
+.middle-content {
+  flex: 1 1 auto; /* flex-grow:1, flex-shrink:1, flex-basis:auto */
+  min-width: 600px; /* 오버플로우 방지 */
+  padding: 20px;
+  border-radius: 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.middle-content img {
+  max-width: 400px;
+  max-height: 350px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.bio-section {
+  width: 100%;
+}
+
+.bio-section textarea {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  line-height: 1.6;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fafafa;
+  color: #333;
+  text-align: center;
+}
+
+/* 하단 버튼 */
+.post-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  max-width: 700px;
+}
+
+.post-button {
+  min-width: 140px;
+  height: 40px;
+  padding: 0 16px;
+  background-color: #9f2120;
+  color: #fff;
+  font-weight: 600;
+  font-family: "Pretendard", sans-serif;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.post-button:hover {
+  background-color: #9f2120;
+  opacity: 90%;
+}
+
+/* ===== 공통 설정 ===== */
+body.minihome-page .content-container {
+  display: flex;
+  gap: 20px;
+}
+
+/* ===== 반응형 MiniHome (992px 이하) ===== */
+@media (max-width: 992px) {
+  body.minihome-page {
+    padding: 10px 0;
+  }
+
+  body.minihome-page .container {
+    max-width: 95%;
+    margin: 10px auto;
+  }
+
+  body.minihome-page .content-container {
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  body.minihome-page .left-sidebar,
+  body.minihome-page .right-sidebar {
+    min-width: 100% !important;
+    border-right: none;
+  }
+
+  body.minihome-page .main-content {
+    padding: 20px;
+    border-right: none;
+  }
+
+  .bio-section textarea {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .post-button {
+    display: inline-block;
+    margin: 5px 0;
+    padding: 10px 16px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .main-content img {
+    max-width: 100%;
+    height: auto;
+  }
+}

@@ -1,0 +1,18 @@
+<div class="left-sidebar">
+  <div class="board-type-sidebar">
+    <div>
+      <span class="board-type-title">Board Type</span>
+    </div>
+
+    <th:block th:each="boardType : ${session.boardTypeList}">
+      <th:block th:if="${boardType.authority == 0 or (boardType.authority == 1 and session.loginMember != null and session.loginMember.memberNo == memberNo)}">
+        <a th:href="@{/{memberNo}/board/{boardCode}(memberNo=${memberNo}, boardCode=${boardType.boardCode})}">
+          <div class="board-type-item" th:classappend="${boardType.boardCode == boardCode} ? 'selected' : ''" th:data-board-code="${boardType.boardCode}">
+            <i th:if="${boardType.authority == 1}" class="fa-solid fa-lock" style=""></i>
+            <span class="board-type-title" th:text="${boardType.boardName}">게시판</span>
+          </div>
+        </a>
+      </th:block>
+    </th:block>
+  </div>
+</div>

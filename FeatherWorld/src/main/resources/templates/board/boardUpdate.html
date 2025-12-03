@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title th:text="|${board.boardNo}번 글 수정|">FeatherWorld - Board</title>
+
+  <th:block th:replace="~{common/common}"></th:block>
+  <link rel="stylesheet" href="/css/board/boardType.css">
+  <link rel="stylesheet" href="/css/board/boardUpdate.css" />
+</head>
+<body>
+<div class="container">
+  <!-- 헤더 Include -->
+  <th:block th:replace="~{common/header}"></th:block>
+
+  <div class="content-container">
+    <!-- 좌측 게시판 리스트 Include -->
+    <th:block th:replace="~{board/boardTypeSidebar}"></th:block>
+
+    <!-- 중앙 게시글 수정 -->
+    <div class="main-content">
+      <div class="back-button">
+        <span class="fa-solid fa-left-long"></span>
+      </div>
+
+      <div class="board-update">
+        <form class="board-form">
+          <div class="input-group mb-4">
+            <input type="text" class="form-control" name="boardTitle"
+                   placeholder="Board Title" aria-label="Board Title"
+                   th:value="${board.boardTitle}"/>
+          </div>
+
+          <div class="content-area">
+                <textarea class="form-control" name="boardContent"
+                          placeholder="Board Content" rows="20" cols="70"
+                          th:text="${board.boardContent}"></textarea>
+          </div>
+
+          <!-- 기존 이미지 표시 영역 -->
+          <div class="existing-images-container" th:if="${board.imageList != null}">
+            <h4 class="existing-images-title">기존 이미지</h4>
+            <div class="existing-images-grid">
+              <th:block th:each="image : ${board.imageList}">
+                <div class="existing-image-item"
+                     th:data-image-no="${image.imgNo}"
+                     th:style="|grid-column: ${image.imgOrder + 1}|">
+                  <img th:src="|${image.imgPath}/${image.imgRename}|" th:alt="${image.imgOriginalName}" />
+                  <div class="image-info">
+                    <span class="image-name" th:text="|${image.imgOrder}. ${image.imgOriginalName}|">image.jpg</span>
+                    <button type="button" class="delete-existing-btn" th:data-image-no="${image.imgNo}">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </th:block>
+            </div>
+          </div>
+
+          <!-- 새 이미지 업로드 영역 -->
+          <div class="image-upload-container">
+            <h4 class="upload-title">새 이미지 추가</h4>
+            <div class="image-upload-grid">
+              <!-- 5개 슬롯 -->
+              <div class="image-slot">
+                <span class="placeholder">✕</span>
+              </div>
+              <div class="image-slot">
+                <span class="placeholder">✕</span>
+              </div>
+              <div class="image-slot">
+                <span class="placeholder">✕</span>
+              </div>
+              <div class="image-slot">
+                <span class="placeholder">✕</span>
+              </div>
+              <div class="image-slot">
+                <span class="placeholder">✕</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button type="button" class="btn-cancel">Cancel</button>
+            <button type="button" class="btn-confirm">✓ Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 우측 네비게이션 바 Include -->
+    <th:block th:replace="~{common/navSidebar}"></th:block>
+  </div>
+
+  <!-- 푸터 Include -->
+  <th:block th:replace="~{common/footer}"></th:block>
+</div>
+
+<!-- 숨겨진 파일 입력 -->
+<input type="file" id="imageUpload" accept="image/*" style="display: none;">
+
+<!-- JS 에서 수정 버튼 클릭 이벤트에 활용할 현재 게시판 정보 선언 -->
+<script th:inline="javascript">
+  const currentBoardCode = /*[[${boardCode}]]*/ 0;
+  const loginMemberNo = /*[[${session.loginMember.memberNo}]]*/ 0;
+  const memberNo = /*[[${memberNo}]]*/ 0;
+  const boardNo = /*[[${board.boardNo}]]*/ 0;
+</script>
+<script src="/js/board/boardUpdate.js"></script>
+</body></html>
