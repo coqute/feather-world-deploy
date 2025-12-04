@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -18,7 +19,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
 @Service
-
+@Profile("prod")
 public class EmailServiceImpl implements EmailService {
 
 	@Autowired
@@ -29,8 +30,6 @@ public class EmailServiceImpl implements EmailService {
 	
 	@Autowired
 	private SpringTemplateEngine templateEngine;
-	
-
 	
 	/** 인증키 발급 메서드
 	 * @return
@@ -131,7 +130,4 @@ public class EmailServiceImpl implements EmailService {
 		
 	}
 
-
-	
-	
 }

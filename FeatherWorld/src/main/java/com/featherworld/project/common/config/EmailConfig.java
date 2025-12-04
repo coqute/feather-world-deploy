@@ -5,10 +5,12 @@ import java.util.Properties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
+@Profile("prod")
 // ************각자 config에 email 값 이랑 password 입력해주기***********************
 public class EmailConfig {
 	// 이메일 인증 관련  config
