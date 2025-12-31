@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  springboot-app:
+    image: coqute/feather-world-deploy:latest  # ← build 대신 image
+    container_name: springboot-app
+    restart: unless-stopped
+    volumes:
+      - /home/ec2-user/semi:/app/uploads
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - app-network
+
+  nginx:
+    build: ./nginx                                    # ← nginx는 로컬 빌드 (변경 잘 안 됨)
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - certbot_www:/var/www/certbot:ro
+      - certbot_conf:/etc/letsencrypt:ro
+    depends_on:
+      - springboot-app
+    networks:
+      - app-network
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - certbot_www:/var/www/certbot
+      - certbot_conf:/etc/letsencrypt
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  certbot_www:
+  certbot_conf:
