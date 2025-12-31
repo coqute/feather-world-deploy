@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   springboot-app:
     image: coqute/feather-world-deploy:latest  # ← build 대신 image
