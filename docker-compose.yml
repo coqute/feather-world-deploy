@@ -5,8 +5,10 @@ services:
     restart: unless-stopped
     volumes:
       - /home/ec2-user/semi:/app/uploads
+      - /home/ec2-user/feather-world-deploy-config:/config:ro
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_CONFIG_LOCATION=optional:classpath:/,optional:file:/config/
     networks:
       - app-network
 
