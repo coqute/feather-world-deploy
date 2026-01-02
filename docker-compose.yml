@@ -22,7 +22,7 @@ services:
     volumes:
       - certbot_www:/var/www/certbot:ro
       - certbot_conf:/etc/letsencrypt:ro
-      - /home/ec2-user/semi/static/images:/usr/share/nginx/html/images:ro
+      - /home/ec2-user/semi/static/images:/usr/share/nginx/html/static/images:ro
     depends_on:
       - springboot-app
     networks:

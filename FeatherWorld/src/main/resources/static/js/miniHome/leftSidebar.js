@@ -164,7 +164,7 @@ function disableEditableFields() {
 // 프로필 변경사항 저장
 function saveProfileChanges() {
   const formData = new FormData();
-  const defaultImageUrl = `${location.origin}/images/default/user.png`;
+  const defaultImageUrl = `${location.origin}/static/images/default/user.png`;
   const userProfileImage = document.getElementById("profileMainImage");
 
   // bio 내용 가져오기
