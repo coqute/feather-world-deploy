@@ -51,7 +51,7 @@ public class ProfileController {
 		return "profile/editprofile";
 	}
 
-	@GetMapping("{memberNo:[0-9]+}/profileupdate")
+	@GetMapping("{memberNo:[0-9]+}/profileUpdate")
 	public String showProfileUpdateForm(@PathVariable("memberNo") int memberNo, Model model,
 			@SessionAttribute(value = "loginMember", required = false) Member loginMember, RedirectAttributes ra) {
 		if (loginMember == null || loginMember.getMemberNo() != memberNo) {
@@ -61,10 +61,10 @@ public class ProfileController {
 			
 		Profile profile = profileService.selectProfile(memberNo);
 		model.addAttribute("profile", profile);
-		return "profile/profileupdate";
+		return "profile/profileUpdate";
 	}
 
-	@PostMapping("{memberNo:[0-9]+}/profileupdate")
+	@PostMapping("{memberNo:[0-9]+}/profileUpdate")
 	public String updateProfile(@PathVariable("memberNo") int memberNo,
 			@SessionAttribute("loginMember") Member loginMember, @RequestParam("uploadFile") MultipartFile uploadFile,
 			@RequestParam("bio") String bio, RedirectAttributes ra) throws Exception {
@@ -90,7 +90,7 @@ public class ProfileController {
 	/** 
 	 * 회원 탈퇴 페이지 (GET)
 	 */
-	@GetMapping("{memberNo}/profiledelete")
+	@GetMapping("{memberNo}/profileDelete")
 	public String profileDelete(@PathVariable("memberNo") int memberNo, HttpSession session, 
 			RedirectAttributes ra, Model model) {
 		Member loginMember = (Member) session.getAttribute("loginMember");
@@ -101,14 +101,14 @@ public class ProfileController {
 		}
 
 		model.addAttribute("memberNo", memberNo);
-		return "profile/profiledelete";
+		return "profile/profileDelete";
 	}
 
 	/** 
 	 * 회원 탈퇴 처리 (POST)
 	 * - memberPw가 null이면 카카오 회원, 있으면 일반 회원으로 구분
 	 */
-	@PostMapping("{memberNo}/profiledelete")
+	@PostMapping("{memberNo}/profileDelete")
 	public String secession(@PathVariable("memberNo") int memberNo,
 	                        @RequestParam(value = "memberPw", required = false) String memberPw,
 	                        HttpSession session,
@@ -128,7 +128,7 @@ public class ProfileController {
 		// 1. 접근 권한 확인
 		if (loginMember == null || loginMember.getMemberNo() != memberNo) {
 			ra.addFlashAttribute("message", "잘못된 접근입니다.");
-			return "redirect:/" + memberNo + "/profiledelete";
+			return "redirect:/" + memberNo + "/profileDelete";
 		}
 
 		int result = 0;
@@ -150,7 +150,7 @@ public class ProfileController {
 				
 				if (memberPw == null || memberPw.trim().isEmpty()) {
 					ra.addFlashAttribute("message", "비밀번호를 입력해주세요.");
-					return "redirect:/" + memberNo + "/profiledelete";
+					return "redirect:/" + memberNo + "/profileDelete";
 				}
 				
 				result = profileService.secession(memberPw, memberNo);
@@ -182,14 +182,14 @@ public class ProfileController {
 				} else {
 					message = "비밀번호가 일치하지 않습니다.";
 				}
-				path = "/" + memberNo + "/profiledelete";
+				path = "/" + memberNo + "/profileDelete";
 			}
 
 		} catch (Exception e) {
 			log.error("예외 발생!!!", e);
 			log.error("회원 탈퇴 처리 중 예외 발생 - memberNo: {}", memberNo, e);
 			message = "탈퇴 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
-			path = "/" + memberNo + "/profiledelete";
+			path = "/" + memberNo + "/profileDelete";
 		}
 
 		ra.addFlashAttribute("message", message);
