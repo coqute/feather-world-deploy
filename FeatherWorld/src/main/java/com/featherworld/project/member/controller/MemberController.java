@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -124,12 +125,12 @@ public class MemberController {
 	 * @author 영민
 	 */
 	@PostMapping("logout")
-	public String logout(HttpSession session , SessionStatus status) {
+    @ResponseBody
+	public ResponseEntity<String> logout(HttpSession session , SessionStatus status) {
 		session.invalidate();
 		 status.setComplete();
 		
-		// 페이지 리다이렉트
-		return "redirect:/";
+		return ResponseEntity.ok("Success");
 	}
 	/** 아이디 찾기 사이트로 포워드
 	 * @author 영민

@@ -45,8 +45,12 @@ document.addEventListener("DOMContentLoaded", function () {
       fetch("/member/logout", {
         method: "POST",
         credentials: "same-origin",
-      }).then(() => {
-        window.location.href = "/";
+      }).then(response => {
+        if(response.status === 200) {
+            window.location.href = "/";
+        } else {
+            alert("로그아웃에 실패했습니다.");
+        }
       });
     });
   }
