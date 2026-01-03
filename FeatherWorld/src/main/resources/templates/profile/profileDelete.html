@@ -9,7 +9,7 @@
     <th:block th:replace="~{common/common}"></th:block>
 
     <!-- 프로필 전용 CSS -->
-    <link rel="stylesheet" href="/css/profile/profiledelete.css" />
+    <link rel="stylesheet" href="/css/profile/profileDelete.css" />
   </head>
   <body
     class="profiledelete"
@@ -30,7 +30,7 @@
 
             <div class="middle-sidebar">
               <form
-                th:action="@{/{memberNo}/profiledelete(memberNo=${memberNo})}"
+                th:action="@{/{memberNo}/profileDelete(memberNo=${memberNo})}"
                 method="post"
                 onsubmit="return validateForm()"
               >

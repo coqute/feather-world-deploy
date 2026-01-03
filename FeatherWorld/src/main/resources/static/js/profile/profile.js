@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (deleteBtn) {
     deleteBtn.addEventListener("click", () => {
-      window.location.href = "profiledelete"; // 실제 URL로 수정
+      window.location.href = "profileDelete"; // 실제 URL로 수정
     });
   }
 });
