@@ -9,7 +9,7 @@
     <th:block th:replace="~{common/common}"></th:block>
 
     <!-- 프로필 전용 CSS -->
-    <link rel="stylesheet" href="/css/profile/Profile.css" />
+    <link rel="stylesheet" href="/css/profile/profile.css" />
   </head>
   <body
     class="minihome-page"
@@ -62,13 +62,13 @@
                 th:if="${session.loginMember != null and session.loginMember.memberNo == memberNo}"
               >
                 <a
-                  th:href="@{/{memberNo}/profileupdate(memberNo=${memberNo})}"
+                  th:href="@{/{memberNo}/profileUpdate(memberNo=${memberNo})}"
                   class="post-button"
                   >Profile Update</a
                 >
 
                 <a
-                  th:href="@{/{memberNo}/profiledelete(memberNo=${memberNo})}"
+                  th:href="@{/{memberNo}/profileDelete(memberNo=${memberNo})}"
                   class="post-button"
                 >
                   Delete Account
