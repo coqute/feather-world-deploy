@@ -41,6 +41,25 @@ jobs:
       - name: 📦 Checkout
         uses: actions/checkout@v4
 
+      - name: 🔑 Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: 🌐 Get Runner IP
+        id: get_ip
+        run: echo "ip=$(curl -s https://checkip.amazonaws.com)" >> $GITHUB_OUTPUT
+
+      - name: 🔓 Add GitHub Actions IP to Security Group
+        run: |
+          aws ec2 authorize-security-group-ingress \
+            --group-id ${{ secrets.AWS_SG_ID }} \
+            --protocol tcp \
+            --port ${{ secrets.EC2_PORT }} \
+            --cidr ${{ steps.get_ip.outputs.ip }}/32
+
       - name: 🚀 Deploy to EC2 via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -54,3 +73,12 @@ jobs:
             docker-compose pull
             docker-compose up -d
             docker-compose logs --tail=30
+
+      - name: 🔒 Remove GitHub Actions IP from Security Group
+        if: always()
+        run: |
+          aws ec2 revoke-security-group-ingress \
+            --group-id ${{ secrets.AWS_SG_ID }} \
+            --protocol tcp \
+            --port ${{ secrets.EC2_PORT }} \
+            --cidr ${{ steps.get_ip.outputs.ip }}/32
